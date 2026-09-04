@@ -34,17 +34,12 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 bgColor="#4285F4"
-                textColor="#ffffff"
-                fillBgColor="#ffffff"
-                fillTextColor="#4285F4"
               />
               <ArrowFillButton
                 btnText="Browse Events"
                 href="#events"
                 transparent
                 textColor="var(--text-primary)"
-                fillBgColor="#34A853"
-                fillTextColor="#ffffff"
                 borderColor="#34A853"
               />
             </ScrollReveal>

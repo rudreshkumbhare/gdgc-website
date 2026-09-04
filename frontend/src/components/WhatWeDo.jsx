@@ -159,9 +159,6 @@ export default function WhatWeDo() {
               btnText="See Upcoming Events"
               href="#events"
               bgColor="#FBBC04"
-              textColor="#1a1a1a"
-              fillBgColor="#1a1a1a"
-              fillTextColor="#FBBC04"
             />
             <ArrowFillButton
               id="wwd-join-btn"
@@ -169,8 +166,6 @@ export default function WhatWeDo() {
               href="#join"
               transparent
               textColor="var(--text-primary)"
-              fillBgColor="#4285F4"
-              fillTextColor="#ffffff"
               borderColor="#4285F4"
             />
           </div>

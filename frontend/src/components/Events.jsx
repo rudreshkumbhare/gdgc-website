@@ -102,13 +102,10 @@ function MagneticEventCard({ evt, onOpenModal }) {
             Details
           </button>
           <ArrowFillButton
-            btnText={evt.status === 'Upcoming' ? ' Register Now' : 'View Recap'}
+            btnText={evt.status === 'Upcoming' ? 'Register Now' : 'View Recap'}
             href={evt.registrationLink}
             size="sm"
             bgColor={evt.status === 'Upcoming' ? '#4285F4' : '#5f6368'}
-            textColor="#ffffff"
-            fillBgColor="#ffffff"
-            fillTextColor={evt.status === 'Upcoming' ? '#4285F4' : '#5f6368'}
           />
         </div>
       </div>
@@ -276,9 +273,6 @@ export default function Events() {
                   btnText={selectedEvent.status === 'Upcoming' ? 'Confirm Registration' : 'View Recap Highlights'}
                   href={selectedEvent.registrationLink}
                   bgColor="#34A853"
-                  textColor="#ffffff"
-                  fillBgColor="#ffffff"
-                  fillTextColor="#34A853"
                   onClick={() => {
                     setToastMsg(`Registered for ${selectedEvent.title}!`)
                     setTimeout(() => setToastMsg(''), 4000)

@@ -39,7 +39,7 @@ function ArrowFillButton({
   textColor = "#ffffff",
 
   fillBgColor = "var(--btn-auto-fill)",
-  fillTextColor = "#4285F4",
+  fillTextColor,
 
   hoverFillBgColor,
   hoverFillTextColor,
@@ -52,11 +52,17 @@ function ArrowFillButton({
 
   ...props
 }) {
+  // Determine primary normal color of this button (Blue, Red, Yellow, Green, Grey, etc.)
+  const normalColor = (transparent || bgColor === "transparent")
+    ? (borderColor || "#4285F4")
+    : bgColor;
+
+  const resolvedFillTextColor      = fillTextColor     || normalColor;
   const resolvedHoverFillBgColor   = hoverFillBgColor   || fillBgColor;
-  const resolvedHoverFillTextColor = hoverFillTextColor || fillTextColor;
-  const resolvedArrowColor         = arrowColor         || fillTextColor;
-  const resolvedHoverArrowColor    = hoverArrowColor    || resolvedHoverFillTextColor;
-  const resolvedBorderColor        = borderColor        || bgColor;
+  const resolvedHoverFillTextColor = hoverFillTextColor|| resolvedFillTextColor;
+  const resolvedArrowColor         = arrowColor        || normalColor;
+  const resolvedHoverArrowColor    = hoverArrowColor   || resolvedArrowColor;
+  const resolvedBorderColor        = borderColor       || bgColor;
 
   const [isReady,         setIsReady]         = useState(false);
   const [isCompactLayout, setIsCompactLayout] = useState(false);
@@ -137,7 +143,7 @@ function ArrowFillButton({
       className={classes}
       style={{
         "--btn-bg":               transparent ? "transparent" : bgColor,
-        "--btn-text":             textColor,
+        "--btn-text":             transparent ? textColor : "var(--btn-solid-text, #ffffff)",
         "--btn-fill-bg":          fillBgColor,
         "--btn-fill-text":        fillTextColor,
         "--btn-fill-bg-hover":    resolvedHoverFillBgColor,

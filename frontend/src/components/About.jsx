@@ -88,9 +88,6 @@ export default function About() {
                 btnText="Become a Member"
                 href="#join"
                 bgColor="#4285F4"
-                textColor="#ffffff"
-                fillBgColor="#ffffff"
-                fillTextColor="#4285F4"
               />
             </ScrollReveal>
           </div>

@@ -48,6 +48,11 @@
   visibility: visible;
 }
 
+/* ---- Dark Mode: Solid buttons get black text before hovering ---- */
+[data-theme="dark"] .arrow-fill-btn:not(.arrow-fill-btn--transparent) {
+  --btn-text: #000000;
+}
+
 /* ---- Small / Compact variant (matches Details button ~34px height) ---- */
 .arrow-fill-btn--sm {
   --icon-circle: 24px !important;
@@ -148,6 +153,11 @@
   position: relative;
   z-index: 1;
   padding-bottom: 1px;
+}
+
+/* In Dark / AMOLED Mode, solid buttons have black text before hovering */
+[data-theme="dark"] .arrow-fill-btn:not(.arrow-fill-btn--transparent) .arrow-fill-btn__text {
+  color: #000000 !important;
 }
 
 /* ---- Arrow icon circle ---- */

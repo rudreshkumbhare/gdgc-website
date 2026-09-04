@@ -125,19 +125,13 @@ export default function Hero() {
             btnText="Join the Community"
             href="#join"
             bgColor="#4285F4"
-            textColor="#ffffff"
-            fillBgColor="#ffffff"
-            fillTextColor="#4285F4"
           />
           <ArrowFillButton
             id="hero-events-btn"
             btnText="Explore Events"
             href="#events"
             transparent
-            bgColor="transparent"
             textColor="var(--text-primary)"
-            fillBgColor="#EA4335"
-            fillTextColor="#ffffff"
             borderColor="#EA4335"
           />
         </div>
