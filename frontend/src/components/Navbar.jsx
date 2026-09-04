@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react'
 import './Navbar.css'
 
 const navLinks = [
-  { label: 'About',   href: '#about' },
-  { label: 'What We Do', href: '#what-we-do' },
-  { label: 'Events',  href: '#events' },
-  { label: 'Team',    href: '#team' },
-  { label: 'Gallery', href: '#gallery' },
+  { label: 'ABOUT',       href: '#about',       color: 'blue' },
+  { label: 'WHAT WE DO',  href: '#what-we-do',  color: 'red' },
+  { label: 'EVENTS',      href: '#events',      color: 'yellow' },
+  { label: 'TEAM',        href: '#team',        color: 'green' },
+  { label: 'JOIN US',     href: '#join',        color: 'blue' },
 ]
 
 export default function Navbar() {
-  const [scrolled, setScrolled]     = useState(false)
-  const [menuOpen, setMenuOpen]     = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const [activeLink, setActiveLink] = useState('')
 
   useEffect(() => {
@@ -20,97 +20,112 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setIsOpen(false)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   const handleNavClick = (href) => {
     setActiveLink(href)
-    setMenuOpen(false)
+    setIsOpen(false)
   }
 
   return (
-    <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} role="banner">
-      <nav className="navbar__inner container" aria-label="Main navigation">
-        {/* Logo */}
-        <a href="#" className="navbar__logo" aria-label="GDGC PCCOE home">
-          <div className="navbar__logo-icon" aria-hidden="true">
-            <span className="dot dot--blue"></span>
-            <span className="dot dot--red"></span>
-            <span className="dot dot--yellow"></span>
-            <span className="dot dot--green"></span>
-          </div>
-          <span className="navbar__logo-text">
-            <span className="logo-gdgc">GDGC</span>
-            <span className="logo-sep"> · </span>
-            <span className="logo-pccoe">PCCOE</span>
-          </span>
-        </a>
+    <>
+      {/* Top Header Bar with Logo & Right-Aligned 3-Stripes Trigger */}
+      <header className={`header-bar ${scrolled ? 'header-bar--scrolled' : ''}`}>
+        <div className="header-bar__inner">
+          {/* Logo */}
+          <a href="#" className="nav-logo" aria-label="GDGC PCCOE Home">
+            <div className="nav-logo__dots" aria-hidden="true">
+              <span className="dot dot--blue"></span>
+              <span className="dot dot--red"></span>
+              <span className="dot dot--yellow"></span>
+              <span className="dot dot--green"></span>
+            </div>
+            <span className="nav-logo__text">
+              <span className="logo-gdgc">GDGC</span>
+              <span className="logo-sep"> · </span>
+              <span className="logo-pccoe">PCCOE</span>
+            </span>
+          </a>
 
-        {/* Desktop Nav Links */}
-        <ul className="navbar__links" role="list">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className={`navbar__link ${activeLink === link.href ? 'navbar__link--active' : ''}`}
-                onClick={() => handleNavClick(link.href)}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+          {/* Three Stripes Trigger Button on Exact Top Right */}
+          <button
+            className={`menu-trigger ${isOpen ? 'menu-trigger--active' : ''}`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? 'Close Menu' : 'Open Navigation Menu'}
+            aria-expanded={isOpen}
+            id="three-stripes-menu-btn"
+          >
+            <span className="stripe stripe--1"></span>
+            <span className="stripe stripe--2"></span>
+            <span className="stripe stripe--3"></span>
+          </button>
+        </div>
+      </header>
 
-        {/* CTA */}
-        <a
-          href="#join"
-          className="btn btn-primary navbar__cta"
-          id="navbar-join-btn"
-          onClick={() => handleNavClick('#join')}
-        >
-          Join Us
-        </a>
-
-        {/* Hamburger */}
-        <button
-          className={`navbar__hamburger ${menuOpen ? 'navbar__hamburger--open' : ''}`}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(!menuOpen)}
-          id="hamburger-btn"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </nav>
-
-      {/* Mobile Menu */}
+      {/* Backdrop */}
       <div
-        className={`navbar__mobile-menu ${menuOpen ? 'navbar__mobile-menu--open' : ''}`}
-        aria-hidden={!menuOpen}
+        className={`drawer-backdrop ${isOpen ? 'drawer-backdrop--open' : ''}`}
+        onClick={() => setIsOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* Right Slide-over Navigation Drawer */}
+      <aside
+        className={`nav-drawer ${isOpen ? 'nav-drawer--open' : ''}`}
+        aria-label="Navigation Sidebar"
+        aria-hidden={!isOpen}
       >
-        <ul role="list">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="navbar__mobile-link"
-                onClick={() => handleNavClick(link.href)}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-          <li>
-            <a
-              href="#join"
-              className="btn btn-primary"
-              style={{ width: '100%', justifyContent: 'center' }}
-              onClick={() => handleNavClick('#join')}
-            >
-              Join Us
-            </a>
-          </li>
-        </ul>
-      </div>
-    </header>
+        <div className="nav-drawer__header">
+          <div className="google-dots">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <span className="nav-drawer__tagline">MENU</span>
+          <button
+            className="nav-drawer__close"
+            onClick={() => setIsOpen(false)}
+            aria-label="Close Navigation Menu"
+          >
+            &times;
+          </button>
+        </div>
+
+        {/* Vertical Links List in ALL CAPS (No Numbers) */}
+        <nav className="nav-drawer__nav">
+          <ul className="nav-drawer__list" role="list">
+            {navLinks.map((link, index) => (
+              <li key={link.href} className="nav-drawer__item" style={{ animationDelay: `${index * 0.06}s` }}>
+                <a
+                  href={link.href}
+                  className={`nav-drawer__link link--${link.color} ${activeLink === link.href ? 'nav-drawer__link--active' : ''}`}
+                  onClick={() => handleNavClick(link.href)}
+                >
+                  <span className="nav-drawer__label">{link.label}</span>
+                  <span className="nav-drawer__arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Footer info in Drawer */}
+        <div className="nav-drawer__footer">
+          <p className="nav-drawer__chapter">Google Developer Groups on Campus</p>
+          <p className="nav-drawer__college">Pimpri Chinchwad College of Engineering</p>
+          <a
+            href="#join"
+            className="btn btn-primary nav-drawer__cta"
+            onClick={() => handleNavClick('#join')}
+          >
+            JOIN CHAPTER
+          </a>
+        </div>
+      </aside>
+    </>
   )
 }

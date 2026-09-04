@@ -1,23 +1,29 @@
-/* ==============================
-   Admin Dashboard & Login CSS
-   ============================== */
+/* =========================================
+   GDGC PCCOE — Premium Admin Dashboard & Portal
+   ========================================= */
+
+/* === Login Page === */
 .admin-login-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-secondary);
-  padding: 20px;
+  background: radial-gradient(circle at 10% 20%, rgba(66, 133, 244, 0.05) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(52, 168, 83, 0.05) 0%, transparent 40%),
+              var(--bg-secondary);
+  padding: 24px;
 }
 
 .admin-login-card {
-  background: var(--bg-primary);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
-  padding: 40px;
+  padding: 44px 36px;
   max-width: 440px;
   width: 100%;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
   text-align: center;
 }
 
@@ -30,7 +36,8 @@
   font-size: 24px;
   font-weight: 700;
   color: var(--gray-900);
-  margin: 12px 0 6px;
+  margin: 14px 0 6px;
+  letter-spacing: -0.01em;
 }
 
 .admin-login-header p {
@@ -41,22 +48,26 @@
 .admin-login-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
   text-align: left;
 }
 
 .admin-login-error {
   color: var(--google-red);
   background: var(--red-50);
+  border: 1px solid var(--red-100);
   padding: 10px 14px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   font-size: 13px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .admin-login-footer {
   margin-top: 24px;
-  padding-top: 16px;
+  padding-top: 18px;
   border-top: 1px solid var(--border-color);
 }
 
@@ -64,21 +75,28 @@
   font-size: 13px;
   color: var(--google-blue);
   text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-fast);
 }
+.admin-login-footer a:hover { text-decoration: underline; }
 
-/* === Admin Portal Page === */
+/* === Admin Portal Container === */
 .admin-dashboard-page {
   min-height: 100vh;
   background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
+/* Header Navbar */
 .admin-nav {
-  background: var(--bg-primary);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
   padding: 14px 0;
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: var(--shadow-sm);
 }
 
 .admin-nav-inner {
@@ -93,34 +111,64 @@
   gap: 10px;
   font-family: var(--font-display);
   font-size: 16px;
+  color: var(--gray-900);
 }
 
 .admin-nav-actions {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
 }
 
 .admin-dashboard-main {
   padding-top: 40px;
-  padding-bottom: 60px;
+  padding-bottom: 80px;
 }
 
+.admin-page-title {
+  margin-bottom: 32px;
+}
+
+.admin-page-title h1 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gray-900);
+  letter-spacing: -0.02em;
+}
+
+.admin-page-title p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Two-column layout */
 .admin-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1.25fr 1fr;
   gap: 32px;
+  align-items: start;
 }
 
+/* Card Container */
 .admin-card {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: 32px;
   box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-normal);
+}
+
+.admin-card:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .admin-card-header {
   margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .admin-card-header h3 {
@@ -128,45 +176,195 @@
   font-size: 20px;
   font-weight: 700;
   color: var(--gray-900);
+  margin-top: 8px;
+}
+
+/* === Form Inputs === */
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-800);
+  letter-spacing: 0.01em;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-color);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--gray-900);
+  background: var(--gray-50);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+  background: #fff;
+  border-color: var(--gray-400);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  background: #fff;
+  border-color: var(--google-blue);
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.15);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Theme Color Selector Pills */
+.color-selector {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.color-pill-btn {
+  flex: 1;
+  height: 38px;
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.color-pill-btn:hover { transform: translateY(-1px); }
+.color-pill-btn--active {
+  border-color: var(--gray-900);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.color-pill-blue   { background: var(--blue-50);   color: var(--google-blue); }
+.color-pill-red    { background: var(--red-50);    color: var(--google-red); }
+.color-pill-yellow { background: var(--yellow-50); color: var(--yellow-800); }
+.color-pill-green  { background: var(--green-50);  color: var(--google-green); }
+
+/* Live Banner Preview Box */
+.banner-preview-box {
+  position: relative;
+  height: 140px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
   margin-top: 6px;
 }
 
-.admin-form {
+.banner-preview-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-preview-overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+/* === Live Events List === */
+.admin-events-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.admin-events-list {
+.admin-event-card {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.admin-event-item {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 16px;
   padding: 16px;
-  background: var(--gray-50);
-  border-radius: var(--radius-md);
+  background: var(--bg-primary);
   border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.admin-event-item-info h4 {
+.admin-event-card:hover {
+  border-color: var(--blue-100);
+  transform: translateX(3px);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-event-img {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.admin-event-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-event-title {
   font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   color: var(--gray-900);
-  margin: 6px 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
 }
 
-.admin-event-item-info p {
-  font-size: 13px;
+.admin-event-meta {
+  font-size: 12px;
   color: var(--text-secondary);
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-@media (max-width: 900px) {
+.delete-btn {
+  background: var(--red-50);
+  color: var(--google-red);
+  border: 1px solid var(--red-100);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.delete-btn:hover {
+  background: var(--google-red);
+  color: #fff;
+  border-color: var(--google-red);
+}
+
+@media (max-width: 960px) {
   .admin-grid {
     grid-template-columns: 1fr;
   }

@@ -46,7 +46,6 @@ export default function AdminDashboard() {
 
   const handleLogin = (e) => {
     e.preventDefault()
-    // Admin Passcode check
     if (passcode === 'gdgc2026' || passcode === 'admin123') {
       setIsAuthenticated(true)
       localStorage.setItem('gdgc_admin_auth', 'true')
@@ -81,7 +80,6 @@ export default function AdminDashboard() {
 
       const data = await res.json()
       if (data.success) {
-        alert('🎉 Event published successfully live to the website!')
         setEvents((prev) => [data.data, ...prev])
         setFormData({
           title: '',
@@ -127,14 +125,15 @@ export default function AdminDashboard() {
               <span></span><span></span><span></span><span></span>
             </div>
             <h2>GDGC PCCOE Admin Portal</h2>
-            <p>Enter organizer passkey to access management panel</p>
+            <p>Enter your chapter lead passcode to continue</p>
           </div>
 
           <form onSubmit={handleLogin} className="admin-login-form">
             <div className="form-group">
-              <label>Admin Passcode</label>
+              <label>Passcode</label>
               <input
                 type="password"
+                className="form-input"
                 placeholder="Enter passcode (e.g. gdgc2026)"
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
@@ -142,7 +141,7 @@ export default function AdminDashboard() {
               />
             </div>
 
-            {error && <div className="admin-login-error">{error}</div>}
+            {error && <div className="admin-login-error">⚠️ {error}</div>}
 
             <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
               Sign In to Dashboard
@@ -159,35 +158,40 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin-dashboard-page">
-      {/* Top Navbar */}
+      {/* Navbar */}
       <header className="admin-nav">
         <div className="admin-nav-inner container">
           <div className="admin-nav-brand">
             <div className="google-dots">
               <span></span><span></span><span></span><span></span>
             </div>
-            <span>GDGC PCCOE <strong>Admin Portal</strong></span>
+            <span>GDGC PCCOE <strong>Organizers Portal</strong></span>
           </div>
 
           <div className="admin-nav-actions">
-            <a href="/" className="btn btn-outline" style={{ fontSize: '13px', padding: '6px 16px' }}>
-              View Public Site ↗
+            <a href="/" className="btn btn-outline" style={{ fontSize: '13px', padding: '7px 18px' }}>
+              View Live Website ↗
             </a>
-            <button onClick={handleLogout} className="btn btn-red" style={{ fontSize: '13px', padding: '6px 16px' }}>
+            <button onClick={handleLogout} className="btn btn-red" style={{ fontSize: '13px', padding: '7px 18px' }}>
               Sign Out
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Main Container */}
       <main className="container admin-dashboard-main">
+        <div className="admin-page-title">
+          <h1>Event Publisher Dashboard</h1>
+          <p>Create and manage official GDGC PCCOE technical events, workshops, and hackathons.</p>
+        </div>
+
         <div className="admin-grid">
           {/* Left: Create Event Form */}
           <div className="admin-card">
             <div className="admin-card-header">
-              <span className="tag tag-blue">Event Management</span>
-              <h3>+ Push New Upcoming Event</h3>
+              <span className="tag tag-blue">Publish New Event</span>
+              <h3>Fill Event Details</h3>
             </div>
 
             <form onSubmit={handlePublish} className="admin-form">
@@ -196,7 +200,8 @@ export default function AdminDashboard() {
                 <input
                   type="text"
                   name="title"
-                  placeholder="e.g. Flutter Forward Hackathon 2026"
+                  className="form-input"
+                  placeholder="e.g. Android Study Jam 2026"
                   value={formData.title}
                   onChange={handleInputChange}
                   required
@@ -209,7 +214,8 @@ export default function AdminDashboard() {
                   <input
                     type="text"
                     name="date"
-                    placeholder="e.g. Oct 25, 2026"
+                    className="form-input"
+                    placeholder="e.g. Nov 12, 2026"
                     value={formData.date}
                     onChange={handleInputChange}
                     required
@@ -221,7 +227,8 @@ export default function AdminDashboard() {
                   <input
                     type="text"
                     name="time"
-                    placeholder="e.g. 10:00 AM - 4:00 PM"
+                    className="form-input"
+                    placeholder="e.g. 10:00 AM - 2:00 PM"
                     value={formData.time}
                     onChange={handleInputChange}
                   />
@@ -234,7 +241,8 @@ export default function AdminDashboard() {
                   <input
                     type="text"
                     name="venue"
-                    placeholder="e.g. PCCOE Auditorium"
+                    className="form-input"
+                    placeholder="e.g. PCCOE Lab 5"
                     value={formData.venue}
                     onChange={handleInputChange}
                   />
@@ -242,37 +250,48 @@ export default function AdminDashboard() {
 
                 <div className="form-group">
                   <label>Category</label>
-                  <select name="category" value={formData.category} onChange={handleInputChange}>
-                    <option value="Cloud">Cloud</option>
-                    <option value="Mobile">Mobile</option>
-                    <option value="AI / ML">AI / ML</option>
-                    <option value="Web Dev">Web Dev</option>
-                    <option value="Community">Community</option>
+                  <select
+                    name="category"
+                    className="form-select"
+                    value={formData.category}
+                    onChange={handleInputChange}
+                  >
+                    <option value="Cloud">Google Cloud</option>
+                    <option value="Mobile">Mobile / Flutter</option>
+                    <option value="AI / ML">AI / Gemini</option>
+                    <option value="Web Dev">Web Development</option>
+                    <option value="Community">Community / Kickoff</option>
                   </select>
                 </div>
               </div>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Theme Color</label>
-                  <select name="color" value={formData.color} onChange={handleInputChange}>
-                    <option value="blue">Google Blue</option>
-                    <option value="red">Google Red</option>
-                    <option value="yellow">Google Yellow</option>
-                    <option value="green">Google Green</option>
-                  </select>
+              {/* Theme Color Selector */}
+              <div className="form-group">
+                <label>Theme Brand Color</label>
+                <div className="color-selector">
+                  {['blue', 'red', 'yellow', 'green'].map((col) => (
+                    <button
+                      key={col}
+                      type="button"
+                      className={`color-pill-btn color-pill-${col} ${formData.color === col ? 'color-pill-btn--active' : ''}`}
+                      onClick={() => setFormData((prev) => ({ ...prev, color: col }))}
+                    >
+                      {col.toUpperCase()}
+                    </button>
+                  ))}
                 </div>
+              </div>
 
-                <div className="form-group">
-                  <label>Registration Link</label>
-                  <input
-                    type="url"
-                    name="registrationLink"
-                    placeholder="https://gdg.community.dev/..."
-                    value={formData.registrationLink}
-                    onChange={handleInputChange}
-                  />
-                </div>
+              <div className="form-group">
+                <label>Registration URL</label>
+                <input
+                  type="url"
+                  name="registrationLink"
+                  className="form-input"
+                  placeholder="https://gdg.community.dev/events/..."
+                  value={formData.registrationLink}
+                  onChange={handleInputChange}
+                />
               </div>
 
               <div className="form-group">
@@ -280,18 +299,29 @@ export default function AdminDashboard() {
                 <input
                   type="url"
                   name="banner"
+                  className="form-input"
                   placeholder="https://images.unsplash.com/..."
                   value={formData.banner}
                   onChange={handleInputChange}
                 />
+                {/* Live Banner Preview */}
+                {formData.banner && (
+                  <div className="banner-preview-box">
+                    <img src={formData.banner} alt="Banner preview" />
+                    <div className="banner-preview-overlay">
+                      <span className={`tag tag-${formData.color}`}>Preview Card Banner</span>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="form-group">
                 <label>Event Description</label>
                 <textarea
                   name="description"
+                  className="form-textarea"
                   rows="3"
-                  placeholder="Brief agenda and details..."
+                  placeholder="Brief details about the event, prerequisites, and swag..."
                   value={formData.description}
                   onChange={handleInputChange}
                 ></textarea>
@@ -301,38 +331,40 @@ export default function AdminDashboard() {
                 type="submit"
                 className="btn btn-primary"
                 disabled={submitting}
-                style={{ width: '100%', justifyContent: 'center', marginTop: '12px' }}
+                style={{ width: '100%', justifyContent: 'center', marginTop: '8px', padding: '14px' }}
               >
-                {submitting ? 'Publishing Event...' : '🚀 Publish Event Live'}
+                {submitting ? 'Publishing...' : '🚀 Publish Event Live'}
               </button>
             </form>
           </div>
 
-          {/* Right: Existing Events List */}
+          {/* Right: Manage Existing Events */}
           <div className="admin-card">
             <div className="admin-card-header">
               <span className="tag tag-green">Live Events ({events.length})</span>
-              <h3>Manage Published Events</h3>
+              <h3>Manage Events</h3>
             </div>
 
             {loading ? (
               <p style={{ color: 'var(--text-muted)' }}>Loading live events...</p>
             ) : events.length === 0 ? (
-              <p style={{ color: 'var(--text-muted)' }}>No events published yet.</p>
+              <p style={{ color: 'var(--text-muted)' }}>No live events published yet.</p>
             ) : (
               <div className="admin-events-list">
                 {events.map((evt) => (
-                  <div key={evt.id} className="admin-event-item">
-                    <div className="admin-event-item-info">
-                      <span className={`tag tag-${evt.color}`}>{evt.category}</span>
-                      <h4>{evt.title}</h4>
-                      <p>📅 {evt.date} | 📍 {evt.venue}</p>
+                  <div key={evt.id} className="admin-event-card">
+                    <img src={evt.banner} alt={evt.title} className="admin-event-img" />
+                    <div className="admin-event-content">
+                      <span className={`tag tag-${evt.color}`} style={{ fontSize: '11px', padding: '2px 8px' }}>
+                        {evt.category}
+                      </span>
+                      <h4 className="admin-event-title">{evt.title}</h4>
+                      <div className="admin-event-meta">
+                        <span>📅 {evt.date}</span>
+                        <span>📍 {evt.venue}</span>
+                      </div>
                     </div>
-                    <button
-                      className="btn btn-outline"
-                      onClick={() => handleDelete(evt.id)}
-                      style={{ color: 'var(--google-red)', borderColor: 'var(--google-red)', padding: '6px 12px', fontSize: '12px' }}
-                    >
+                    <button className="delete-btn" onClick={() => handleDelete(evt.id)}>
                       Delete
                     </button>
                   </div>
