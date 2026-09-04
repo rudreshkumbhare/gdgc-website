@@ -1,0 +1,241 @@
+/* =========================================
+   GDGC PCCOE — Global Design System
+   Google Brand Colors:
+   Blue:   #4285F4
+   Red:    #EA4335
+   Yellow: #FBBC04
+   Green:  #34A853
+   ========================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* === Google Brand Colors === */
+  --google-blue:    #4285F4;
+  --google-red:     #EA4335;
+  --google-yellow:  #FBBC04;
+  --google-green:   #34A853;
+
+  /* === Tinted Shades (light) === */
+  --blue-50:   #E8F0FE;
+  --blue-100:  #BBCFF9;
+  --blue-200:  #8EB0F5;
+  --blue-600:  #2D6CDA;
+  --blue-800:  #1A3F8A;
+
+  --red-50:    #FDECEA;
+  --red-100:   #F5B9B4;
+  --red-600:   #C9342A;
+  --red-800:   #7F1F18;
+
+  --yellow-50:  #FEF9E7;
+  --yellow-100: #FDEDB0;
+  --yellow-600: #D9A004;
+  --yellow-800: #8A6502;
+
+  --green-50:   #E6F4EC;
+  --green-100:  #B3DEC4;
+  --green-600:  #278C43;
+  --green-800:  #165929;
+
+  /* === Neutral Palette === */
+  --gray-50:  #F8F9FA;
+  --gray-100: #F1F3F4;
+  --gray-200: #E8EAED;
+  --gray-400: #BDC1C6;
+  --gray-500: #9AA0A6;
+  --gray-700: #5F6368;
+  --gray-800: #3C4043;
+  --gray-900: #202124;
+
+  /* === Semantic Tokens === */
+  --bg-primary:   #FFFFFF;
+  --bg-secondary: #F8F9FA;
+  --bg-tertiary:  #F1F3F4;
+  --text-primary:   #202124;
+  --text-secondary: #5F6368;
+  --text-muted:     #9AA0A6;
+  --border-color:   #E8EAED;
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-xl:  0 16px 64px rgba(0,0,0,0.14), 0 8px 24px rgba(0,0,0,0.08);
+
+  /* === Typography === */
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Google Sans', 'Inter', sans-serif;
+
+  /* === Spacing === */
+  --section-padding-y: 96px;
+  --container-max:     1200px;
+  --container-px:      clamp(20px, 4vw, 48px);
+
+  /* === Radius === */
+  --radius-sm:  8px;
+  --radius-md:  16px;
+  --radius-lg:  24px;
+  --radius-xl:  32px;
+  --radius-full: 9999px;
+
+  /* === Transition === */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms ease;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* === Utility Classes === */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+}
+
+.section {
+  padding: var(--section-padding-y) 0;
+}
+
+/* === Animated underline on headings === */
+.underline-blue  { border-bottom: 3px solid var(--google-blue);  display: inline-block; }
+.underline-red   { border-bottom: 3px solid var(--google-red);   display: inline-block; }
+.underline-yellow{ border-bottom: 3px solid var(--google-yellow); display: inline-block; }
+.underline-green { border-bottom: 3px solid var(--google-green); display: inline-block; }
+
+/* === Button Base === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+  letter-spacing: 0.01em;
+}
+.btn:hover  { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary {
+  background: var(--google-blue);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(66,133,244,0.35);
+}
+.btn-primary:hover {
+  background: var(--blue-600);
+  box-shadow: 0 4px 16px rgba(66,133,244,0.45);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--google-blue);
+  border: 1.5px solid var(--google-blue);
+}
+.btn-outline:hover {
+  background: var(--blue-50);
+}
+
+.btn-red {
+  background: var(--google-red);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(234,67,53,0.35);
+}
+.btn-red:hover { background: var(--red-600); }
+
+/* === Tag / Pill === */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+.tag-blue   { background: var(--blue-50);   color: var(--blue-600); }
+.tag-red    { background: var(--red-50);    color: var(--red-600); }
+.tag-yellow { background: var(--yellow-50); color: var(--yellow-600); }
+.tag-green  { background: var(--green-50);  color: var(--green-600); }
+
+/* === Google-color dot decoration === */
+.google-dots span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 3px;
+}
+.google-dots span:nth-child(1) { background: var(--google-blue); }
+.google-dots span:nth-child(2) { background: var(--google-red); }
+.google-dots span:nth-child(3) { background: var(--google-yellow); }
+.google-dots span:nth-child(4) { background: var(--google-green); }
+
+/* === Smooth fade-in animation === */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fadeUp  { animation: fadeUp  0.65s ease both; }
+.animate-fadeIn  { animation: fadeIn  0.5s  ease both; }
+.animate-scaleIn { animation: scaleIn 0.55s ease both; }
+.animate-slideRight { animation: slideRight 0.6s ease both; }
+
+/* staggered children */
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.12s; }
+.stagger > *:nth-child(3) { animation-delay: 0.19s; }
+.stagger > *:nth-child(4) { animation-delay: 0.26s; }
+.stagger > *:nth-child(5) { animation-delay: 0.33s; }
+.stagger > *:nth-child(6) { animation-delay: 0.40s; }
+
+/* === Scrollbar === */
+::-webkit-scrollbar        { width: 8px; }
+::-webkit-scrollbar-track  { background: var(--gray-100); }
+::-webkit-scrollbar-thumb  { background: var(--gray-400); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray-500); }
+
+/* === Selection === */
+::selection { background: var(--blue-50); color: var(--blue-600); }
+
+/* === Focus ring === */
+:focus-visible {
+  outline: 2px solid var(--google-blue);
+  outline-offset: 3px;
+}
