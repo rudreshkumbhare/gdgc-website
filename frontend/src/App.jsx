@@ -8,8 +8,10 @@ import Events from './components/Events'
 import Team from './components/Team'
 import Footer from './components/Footer'
 import AdminDashboard from './components/AdminDashboard'
+import BoxLoader from './components/ui/box-loader'
 
 function App() {
+  const [loading, setLoading] = useState(true)
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
 
   useEffect(() => {
@@ -18,14 +20,34 @@ function App() {
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  // If path is /admin, render secret Admin Portal
+  // Preloader duration set to 4.5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 4500)
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Secret Admin Portal at /admin
   if (currentPath === '/admin' || currentPath === '/admin/') {
     return <AdminDashboard />
   }
 
-  // Otherwise, render 100% clean public website for normal visitors
   return (
     <div className="app">
+      {/* Preloader Overlay (Google Color 3D Blocks on White Background) */}
+      <div className={`preloader-overlay ${!loading ? 'preloader-overlay--hidden' : ''}`}>
+        <BoxLoader />
+        <div className="preloader-text">
+          <div className="google-dots" style={{ marginBottom: '6px' }}>
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <span className="preloader-title">GDGC PCCOE</span>
+          <span className="preloader-subtitle">Google Developer Groups on Campus</span>
+        </div>
+      </div>
+
+      {/* Main Website Content */}
       <Navbar />
       <main>
         <Hero />

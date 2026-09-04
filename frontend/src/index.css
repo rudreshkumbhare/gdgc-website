@@ -177,13 +177,14 @@ body {
 .tag-yellow { background: var(--yellow-50); color: var(--yellow-600); }
 .tag-green  { background: var(--green-50);  color: var(--green-600); }
 
-/* === Google-color dot decoration === */
+/* === Google-color dot decoration (FIXED PERFECT CIRCLES) === */
 .google-dots span {
   display: inline-block;
-  width: 10px;
+  width: 10px;  /* FIXED CIRCLE DIMENSIONS */
   height: 10px;
   border-radius: 50%;
   margin: 0 3px;
+  flex-shrink: 0;
 }
 .google-dots span:nth-child(1) { background: var(--google-blue); }
 .google-dots span:nth-child(2) { background: var(--google-red); }
@@ -238,4 +239,172 @@ body {
 :focus-visible {
   outline: 2px solid var(--google-blue);
   outline-offset: 3px;
+}
+
+/* =========================================
+   SOLID 3D ISOMETRIC BOX LOADER (Complete 6-Face Cubes in Google Colors)
+   ========================================= */
+
+.boxes {
+  --size: 44px;
+  --duration: 800ms;
+  height: calc(var(--size) * 2);
+  width: calc(var(--size) * 3);
+  position: relative;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  margin-top: calc(var(--size) * 1.5 * -1);
+  transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+}
+
+.boxes .box {
+  width: var(--size);
+  height: var(--size);
+  top: 0;
+  left: 0;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.boxes .box-1 {
+  transform: translate(100%, 0);
+  animation: box1 var(--duration) linear infinite;
+}
+
+.boxes .box-2 {
+  transform: translate(0, 100%);
+  animation: box2 var(--duration) linear infinite;
+}
+
+.boxes .box-3 {
+  transform: translate(100%, 100%);
+  animation: box3 var(--duration) linear infinite;
+}
+
+.boxes .box-4 {
+  transform: translate(200%, 0);
+  animation: box4 var(--duration) linear infinite;
+}
+
+/* Universal Face Base — Fully Solid 3D Faces */
+.boxes .box > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  backface-visibility: visible;
+}
+
+/* 6-Face Transforms */
+.boxes .box > div.face-front {
+  transform: translateZ(calc(var(--size) / 2));
+}
+
+.boxes .box > div.face-back {
+  transform: rotateY(180deg) translateZ(calc(var(--size) / 2));
+}
+
+.boxes .box > div.face-left {
+  transform: rotateY(-90deg) translateZ(calc(var(--size) / 2));
+}
+
+.boxes .box > div.face-right {
+  transform: rotateY(90deg) translateZ(calc(var(--size) / 2));
+}
+
+.boxes .box > div.face-top {
+  transform: rotateX(90deg) translateZ(calc(var(--size) / 2));
+}
+
+.boxes .box > div.face-bottom {
+  transform: rotateX(-90deg) translateZ(calc(var(--size) / 2));
+}
+
+/* --- Box 1: GOOGLE BLUE (#4285F4) --- */
+.boxes .box-1 > div { background: #4285F4; }
+.boxes .box-1 > div.face-top    { background: #6BA4F8; } /* Highlighted top */
+.boxes .box-1 > div.face-right  { background: #2B6CE0; } /* Shaded right side */
+.boxes .box-1 > div.face-bottom { background: #1B52BA; }
+
+/* --- Box 2: GOOGLE RED (#EA4335) --- */
+.boxes .box-2 > div { background: #EA4335; }
+.boxes .box-2 > div.face-top    { background: #F26C61; } /* Highlighted top */
+.boxes .box-2 > div.face-right  { background: #C72E21; } /* Shaded right side */
+.boxes .box-2 > div.face-bottom { background: #9E1F14; }
+
+/* --- Box 3: GOOGLE YELLOW (#FBBC04) --- */
+.boxes .box-3 > div { background: #FBBC04; }
+.boxes .box-3 > div.face-top    { background: #FCD03A; } /* Highlighted top */
+.boxes .box-3 > div.face-right  { background: #D9A002; } /* Shaded right side */
+.boxes .box-3 > div.face-bottom { background: #B28200; }
+
+/* --- Box 4: GOOGLE GREEN (#34A853) --- */
+.boxes .box-4 > div { background: #34A853; }
+.boxes .box-4 > div.face-top    { background: #54C873; } /* Highlighted top */
+.boxes .box-4 > div.face-right  { background: #238B42; } /* Shaded right side */
+.boxes .box-4 > div.face-bottom { background: #176B30; }
+
+/* Keyframes */
+@keyframes box1 {
+  0%, 50% { transform: translate(100%, 0); }
+  100%    { transform: translate(200%, 0); }
+}
+
+@keyframes box2 {
+  0%      { transform: translate(0, 100%); }
+  50%     { transform: translate(0, 0); }
+  100%    { transform: translate(100%, 0); }
+}
+
+@keyframes box3 {
+  0%, 50% { transform: translate(100%, 100%); }
+  100%    { transform: translate(0, 100%); }
+}
+
+@keyframes box4 {
+  0%      { transform: translate(200%, 0); }
+  50%     { transform: translate(200%, 100%); }
+  100%    { transform: translate(100%, 100%); }
+}
+
+/* Preloader Overlay Container */
+.preloader-overlay {
+  position: fixed;
+  inset: 0;
+  background: #ffffff; /* Pure white background */
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+}
+
+.preloader-overlay--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.preloader-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-900);
+  letter-spacing: 0.05em;
+}
+
+.preloader-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
 }
