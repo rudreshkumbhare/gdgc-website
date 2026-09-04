@@ -1,10 +1,11 @@
 /* ==============================
-   Events Section
+   Events Section — Clean Minimalist UI
    ============================== */
 .events {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
+  position: relative;
 }
 
 .events__header-row {
@@ -30,13 +31,6 @@
   max-width: 580px;
 }
 
-.events__admin-btn {
-  font-size: 14px;
-  padding: 10px 20px;
-  white-space: nowrap;
-  background: #fff;
-}
-
 /* === Filter Tabs === */
 .events__filters {
   display: flex;
@@ -50,9 +44,9 @@
   border-radius: var(--radius-full);
   border: 1px solid var(--border-color);
   background: var(--bg-primary);
-  color: var(--gray-700);
+  color: var(--text-secondary);
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -61,12 +55,14 @@
 .events__filter-btn:hover {
   background: var(--gray-100);
   color: var(--gray-900);
+  transform: translateY(-1px);
 }
 
 .events__filter-btn--active {
   background: var(--google-blue);
   color: #fff;
   border-color: var(--google-blue);
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
 }
 
 /* === Events Grid === */
@@ -76,106 +72,517 @@
   gap: 28px;
 }
 
+/* === Clean Card Architecture === */
 .events__card {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  position: relative;
+  will-change: transform;
+  transform-style: preserve-3d;
+  cursor: default;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .events__card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
+  border-color: var(--gray-400);
 }
 
+/* Cursor glow layer */
+.events__card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+/* Banner Container */
 .events__card-banner {
   position: relative;
-  height: 180px;
+  height: 185px;
   width: 100%;
   overflow: hidden;
+  background: #111;
+  z-index: 2;
 }
 
 .events__card-banner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: brightness(0.92);
 }
 
 .events__card:hover .events__card-banner img {
   transform: scale(1.05);
+  filter: brightness(0.98);
 }
 
-.events__badge {
+.events__banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%);
+}
+
+/* Reduced Intensity Soft Shine Reflection */
+.events__shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.8s ease;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.events__card:hover .events__shine {
+  left: 150%;
+}
+
+/* Clean Date Ticket Stamp */
+.events__ticket-stamp {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.events__stamp-month {
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 3px 0;
+  color: #fff;
+  background: var(--google-blue);
+}
+
+.events__stamp-day {
+  width: 100%;
+  text-align: center;
+  background: #ffffff;
+  color: var(--gray-900);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+  padding: 3px 0;
+  line-height: 1.1;
+}
+
+/* Minimal Status Badge */
+.events__badge-wrap {
   position: absolute;
   top: 14px;
   right: 14px;
-  box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(8px);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--gray-900);
 }
 
+.events__pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--google-blue);
+}
+
+/* === Ticket Perforated Divider === */
+.events__ticket-divider {
+  position: relative;
+  height: 14px;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  z-index: 3;
+}
+
+.events__notch {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--bg-secondary);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  border: 1px solid var(--border-color);
+}
+
+.events__notch--left {
+  left: -7px;
+  clip-path: circle(50% at 100% 50%);
+}
+
+.events__notch--right {
+  right: -7px;
+  clip-path: circle(50% at 0% 50%);
+}
+
+.events__dashed-line {
+  flex: 1;
+  height: 1px;
+  margin: 0 14px;
+  border-top: 1px dashed var(--gray-200);
+}
+
+/* === Card Body & Info === */
 .events__card-body {
-  padding: 24px;
+  padding: 18px 22px 22px 22px;
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 12px;
+  gap: 10px;
+  z-index: 2;
 }
 
 .events__meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
 }
 
 .events__category {
-  color: var(--google-blue);
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  color: var(--google-blue);
 }
 
-.events__date {
+.events__seats {
+  font-size: 11.5px;
+  font-weight: 500;
   color: var(--text-secondary);
+  background: var(--gray-100);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
 }
 
 .events__title {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--gray-900);
   line-height: 1.3;
 }
 
 .events__desc {
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.55;
   flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.events__details {
+/* Tech Stack Hashtag Pills */
+.events__tags {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 6px;
-  font-size: 13px;
-  color: var(--gray-700);
-  background: var(--gray-50);
-  padding: 10px 14px;
+  margin-top: 2px;
+}
+
+.events__tag-pill {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--gray-100);
+  padding: 2px 8px;
   border-radius: var(--radius-sm);
 }
 
+/* Details Box (Venue & Time) */
+.events__details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: var(--gray-50);
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.events__detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.events__detail-item svg {
+  color: var(--google-blue);
+  flex-shrink: 0;
+}
+
+/* Action Footer */
 .events__footer {
-  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.events__details-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  height: 34px;
+  box-sizing: border-box;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.events__details-btn:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-400);
 }
 
 .events__register-btn {
+  flex: 1;
+  justify-content: center;
+  font-size: 13.5px;
+  padding: 9px 16px;
+}
+
+.events__register-btn .btn-arrow {
+  transition: transform 0.25s ease;
+}
+
+.events__register-btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+/* === Event Modal === */
+.events__modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+}
+
+.events__modal-content {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-xl);
+  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.events__modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s ease;
+}
+.events__modal-close:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.events__pass-header {
+  padding: 28px 24px 20px 24px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--google-blue), #1A3F8A);
+  position: relative;
+}
+
+.events__pass-badge {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  opacity: 0.85;
+  margin-bottom: 6px;
+}
+
+.events__pass-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+
+.events__pass-date {
+  font-size: 13px;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.events__pass-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.events__pass-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--text-primary);
+  background: var(--gray-50);
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.events__pass-desc {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.events__modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.events__modal-rsvp {
   width: 100%;
   justify-content: center;
+  padding: 12px;
+  font-size: 14.5px;
+}
+
+/* Toast */
+.events__toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: var(--gray-900);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  z-index: 10000;
+  border: 1px solid var(--border-color);
+}
+
+/* === Super AMOLED Dark Mode Overrides === */
+[data-theme="dark"] .events__card {
+  background: #040405;
+  border-color: var(--border-color);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .events__ticket-divider {
+  background: #040405;
+}
+
+[data-theme="dark"] .events__notch {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .events__badge-wrap {
+  background: rgba(18, 19, 22, 0.9);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+[data-theme="dark"] .events__stamp-day {
+  background: #141518;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .events__details {
+  background: #0c0d0f;
+  border-color: var(--border-color);
+  color: #d0d4dc;
+}
+
+[data-theme="dark"] .events__tag-pill {
+  background: #141518;
+  color: #a0a6b0;
+}
+
+[data-theme="dark"] .events__modal-content {
+  background: #08080a;
+  border-color: var(--border-color);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.95);
+}
+
+[data-theme="dark"] .events__pass-info {
+  background: #0f1013;
+  border-color: var(--border-color);
+  color: #f8f9fa;
 }
 
 /* === Responsive === */
@@ -183,5 +590,9 @@
   .events__header-row {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .events__grid {
+    grid-template-columns: 1fr;
   }
 }

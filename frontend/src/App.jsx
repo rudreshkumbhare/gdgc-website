@@ -10,6 +10,7 @@ import Footer from './components/Footer'
 import AdminDashboard from './components/AdminDashboard'
 import BoxLoader from './components/ui/box-loader'
 import CustomCursor from './components/CustomCursor'
+import DotParticleCanvas from './components/ui/dot-particles'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -21,11 +22,11 @@ function App() {
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  // Preloader duration set to 4.5 seconds
+  // Preloader duration — snappy 2s
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false)
-    }, 4500)
+    }, 2000)
     return () => clearTimeout(timer)
   }, [])
 
@@ -36,6 +37,13 @@ function App() {
 
   return (
     <div className="app">
+      {/* Site-Wide Antigravity Dot Particle Canvas */}
+      <DotParticleCanvas
+        backgroundColor="transparent"
+        particleColor="50, 50, 55"
+        animationSpeed={0.006}
+      />
+
       {/* Google 4-Color Magnetic Fluid Custom Cursor */}
       <CustomCursor />
 

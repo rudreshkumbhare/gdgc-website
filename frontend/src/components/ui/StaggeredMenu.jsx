@@ -1,6 +1,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import './StaggeredMenu.css';
+import ThemeToggle from '../ThemeToggle';
 
 export const StaggeredMenu = ({
   position = 'right',
@@ -64,7 +65,9 @@ export const StaggeredMenu = ({
       gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 });
       gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
       gsap.set(textInner, { yPercent: 0 });
-      if (toggleBtnRef.current) gsap.set(toggleBtnRef.current, { color: menuButtonColor });
+      if (toggleBtnRef.current && changeMenuColorOnOpen) {
+        gsap.set(toggleBtnRef.current, { color: menuButtonColor });
+      }
     });
     return () => ctx.revert();
   }, [menuButtonColor, position]);
@@ -255,7 +258,7 @@ export const StaggeredMenu = ({
           ease: 'power2.out'
         });
       } else {
-        gsap.set(btn, { color: menuButtonColor });
+        gsap.set(btn, { clearProps: 'color' });
       }
     },
     [openMenuButtonColor, menuButtonColor, changeMenuColorOnOpen]
@@ -267,7 +270,7 @@ export const StaggeredMenu = ({
         const targetColor = openRef.current ? openMenuButtonColor : menuButtonColor;
         gsap.set(toggleBtnRef.current, { color: targetColor });
       } else {
-        gsap.set(toggleBtnRef.current, { color: menuButtonColor });
+        gsap.set(toggleBtnRef.current, { clearProps: 'color' });
       }
     }
   }, [changeMenuColorOnOpen, menuButtonColor, openMenuButtonColor]);
@@ -355,26 +358,14 @@ export const StaggeredMenu = ({
       data-open={open || undefined}
     >
       <div ref={preLayersRef} className="sm-prelayers" aria-hidden="true">
-        {(() => {
-          const raw = colors && colors.length ? colors.slice(0, 4) : ['#4285F4', '#EA4335', '#FBBC04', '#34A853'];
-          let arr = [...raw];
-          if (arr.length >= 3) {
-            const mid = Math.floor(arr.length / 2);
-            arr.splice(mid, 1);
-          }
-          return arr.map((c, i) => <div key={i} className="sm-prelayer" style={{ background: c }} />);
-        })()}
+        {(colors && colors.length ? colors : ['#4285F4', '#EA4335', '#FBBC04', '#34A853']).map((c, i) => (
+          <div key={i} className="sm-prelayer" style={{ background: c }} />
+        ))}
       </div>
 
       {/* Header bar matching exact site typography */}
       <header className="staggered-menu-header" aria-label="Main navigation header">
         <a href="#" className="nav-logo">
-          <div className="nav-logo__dots" aria-hidden="true">
-            <span className="dot dot--blue"></span>
-            <span className="dot dot--red"></span>
-            <span className="dot dot--yellow"></span>
-            <span className="dot dot--green"></span>
-          </div>
           <span className="nav-logo__text">
             <span className="logo-gdgc">GDGC</span>
             <span className="logo-sep"> · </span>
@@ -382,29 +373,32 @@ export const StaggeredMenu = ({
           </span>
         </a>
 
-        <button
-          ref={toggleBtnRef}
-          className="sm-toggle"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          aria-controls="staggered-menu-panel"
-          onClick={toggleMenu}
-          type="button"
-        >
-          <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
-            <span ref={textInnerRef} className="sm-toggle-textInner">
-              {textLines.map((l, i) => (
-                <span className="sm-toggle-line" key={i}>
-                  {l}
-                </span>
-              ))}
+        <div className="nav-right-controls" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <ThemeToggle />
+          <button
+            ref={toggleBtnRef}
+            className="sm-toggle"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="staggered-menu-panel"
+            onClick={toggleMenu}
+            type="button"
+          >
+            <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
+              <span ref={textInnerRef} className="sm-toggle-textInner">
+                {textLines.map((l, i) => (
+                  <span className="sm-toggle-line" key={i}>
+                    {l}
+                  </span>
+                ))}
+              </span>
             </span>
-          </span>
-          <span ref={iconRef} className="sm-icon" aria-hidden="true">
-            <span ref={plusHRef} className="sm-icon-line" />
-            <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
-          </span>
-        </button>
+            <span ref={iconRef} className="sm-icon" aria-hidden="true">
+              <span ref={plusHRef} className="sm-icon-line" />
+              <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
+            </span>
+          </button>
+        </div>
       </header>
 
       <aside id="staggered-menu-panel" ref={panelRef} className="staggered-menu-panel" aria-hidden={!open}>

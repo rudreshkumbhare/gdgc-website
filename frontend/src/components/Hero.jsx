@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 import './Hero.css'
 import TextType from './ui/TextType'
+import { useCountUp } from './ui/useCountUp'
+import ArrowFillButton from './ui/arrow-fill-button'
 
 const FLOATING_TECH = [
   { label: 'Flutter',      color: 'blue',   top: '18%', left: '8%',  delay: '0s'   },
@@ -15,6 +17,11 @@ const FLOATING_TECH = [
 
 export default function Hero() {
   const heroRef = useRef(null)
+
+  // Animated stat counters — fire when stats section enters view
+  const { count: memberCount,  ref: memberRef  } = useCountUp(500, 2000, 0)
+  const { count: eventCount,   ref: eventRef   } = useCountUp(40,  1800, 150)
+  const { count: projectCount, ref: projectRef } = useCountUp(20,  1600, 300)
 
   useEffect(() => {
     const hero = heroRef.current
@@ -72,22 +79,23 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Main content */}
+      {/* Main content — no ScrollReveal here; hero is in viewport on load */}
       <div className="hero__content container">
         {/* Badge */}
-        <div className="hero__badge animate-fadeUp">
+        <div className="hero__badge animate-fadeUp" style={{ animationDelay: '0.1s' }}>
           <div className="google-dots">
             <span></span><span></span><span></span><span></span>
           </div>
           <span>Google Developer Groups on Campus</span>
         </div>
 
-        {/* Headline with React Bits TextType integration */}
-        <h1 className="hero__headline animate-fadeUp">
+        {/* Headline */}
+        <h1 className="hero__headline animate-fadeUp" style={{ animationDelay: '0.25s' }}>
           Build the Future
           <br />
           <span className="hero__headline-highlight">
             <TextType
+              as="span"
               text={[
                 "Learn. Grow. Impact.",
                 "Google Cloud Study Jams.",
@@ -96,7 +104,7 @@ export default function Hero() {
               ]}
               typingSpeed={60}
               deletingSpeed={35}
-              pauseDuration={2000}
+              pauseDuration={1700}
               showCursor={true}
               cursorCharacter="|"
               textColors={['#4285F4', '#EA4335', '#FBBC04', '#34A853']}
@@ -105,50 +113,56 @@ export default function Hero() {
         </h1>
 
         {/* Subheading */}
-        <p className="hero__sub animate-fadeUp">
+        <p className="hero__sub animate-fadeUp" style={{ animationDelay: '0.4s' }}>
           GDGC PCCOE is Pimpri Chinchwad's student-led community powered
           by Google. We host workshops, hackathons, and study jams to help
           you level up with cutting-edge technology.
         </p>
 
         {/* CTA Row */}
-        <div className="hero__cta-row animate-fadeUp stagger">
-          <a
-            href="#join"
-            className="btn btn-primary hero__cta-primary"
+        <div className="hero__cta-row animate-fadeUp" style={{ animationDelay: '0.55s' }}>
+          <ArrowFillButton
             id="hero-join-btn"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
-            </svg>
-            Join the Community
-          </a>
-          <a
-            href="#events"
-            className="btn btn-outline hero__cta-secondary"
+            btnText="Join the Community"
+            href="#join"
+            bgColor="#4285F4"
+            textColor="#ffffff"
+            fillBgColor="#ffffff"
+            fillTextColor="#4285F4"
+          />
+          <ArrowFillButton
             id="hero-events-btn"
-          >
-            Explore Events
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-            </svg>
-          </a>
+            btnText="Explore Events"
+            href="#events"
+            transparent
+            bgColor="transparent"
+            textColor="var(--text-primary)"
+            fillBgColor="#EA4335"
+            fillTextColor="#ffffff"
+            borderColor="#EA4335"
+          />
         </div>
 
         {/* Stats row */}
-        <div className="hero__stats animate-fadeUp stagger">
+        <div className="hero__stats animate-fadeUp" style={{ animationDelay: '0.7s' }}>
           <div className="hero__stat">
-            <span className="hero__stat-num" style={{ color: 'var(--google-blue)' }}>500+</span>
+            <span ref={memberRef} className="hero__stat-num" style={{ color: 'var(--google-blue)' }}>
+              {memberCount}<span className="hero__stat-plus">+</span>
+            </span>
             <span className="hero__stat-label">Members</span>
           </div>
           <div className="hero__stat-divider" aria-hidden="true"></div>
           <div className="hero__stat">
-            <span className="hero__stat-num" style={{ color: 'var(--google-red)' }}>40+</span>
+            <span ref={eventRef} className="hero__stat-num" style={{ color: 'var(--google-red)' }}>
+              {eventCount}<span className="hero__stat-plus">+</span>
+            </span>
             <span className="hero__stat-label">Events Hosted</span>
           </div>
           <div className="hero__stat-divider" aria-hidden="true"></div>
           <div className="hero__stat">
-            <span className="hero__stat-num" style={{ color: 'var(--google-green)' }}>20+</span>
+            <span ref={projectRef} className="hero__stat-num" style={{ color: 'var(--google-green)' }}>
+              {projectCount}<span className="hero__stat-plus">+</span>
+            </span>
             <span className="hero__stat-label">Projects Built</span>
           </div>
         </div>

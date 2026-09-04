@@ -4,7 +4,7 @@ import './TextType.css';
 
 const TextType = ({
   text,
-  as: Component = 'div',
+  as: Component = 'span',
   typingSpeed = 50,
   initialDelay = 0,
   pauseDuration = 2000,
@@ -85,18 +85,19 @@ const TextType = ({
     const executeTypingAnimation = () => {
       if (isDeleting) {
         if (displayedText === '') {
-          setIsDeleting(false);
-          if (currentTextIndex === textArray.length - 1 && !loop) {
-            return;
-          }
+          timeout = setTimeout(() => {
+            setIsDeleting(false);
+            if (currentTextIndex === textArray.length - 1 && !loop) {
+              return;
+            }
 
-          if (onSentenceComplete) {
-            onSentenceComplete(textArray[currentTextIndex], currentTextIndex);
-          }
+            if (onSentenceComplete) {
+              onSentenceComplete(textArray[currentTextIndex], currentTextIndex);
+            }
 
-          setCurrentTextIndex(prev => (prev + 1) % textArray.length);
-          setCurrentCharIndex(0);
-          timeout = setTimeout(() => {}, pauseDuration);
+            setCurrentTextIndex(prev => (prev + 1) % textArray.length);
+            setCurrentCharIndex(0);
+          }, 350);
         } else {
           timeout = setTimeout(() => {
             setDisplayedText(prev => prev.slice(0, -1));
@@ -147,6 +148,8 @@ const TextType = ({
   const shouldHideCursor =
     hideCursorWhileTyping && (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
 
+  const currentColor = getCurrentTextColor();
+
   return createElement(
     Component,
     {
@@ -154,13 +157,14 @@ const TextType = ({
       className: `text-type ${className}`,
       ...props
     },
-    <span className="text-type__content" style={{ color: getCurrentTextColor() || 'inherit' }}>
-      {displayedText}
+    <span className="text-type__content" style={{ color: currentColor || 'inherit' }}>
+      {displayedText || <span style={{ opacity: 0, userSelect: 'none' }}>&nbsp;</span>}
     </span>,
     showCursor && (
       <span
         ref={cursorRef}
         className={`text-type__cursor ${cursorClassName} ${shouldHideCursor ? 'text-type__cursor--hidden' : ''}`}
+        style={{ color: currentColor && currentColor !== 'inherit' ? currentColor : 'var(--google-blue)' }}
       >
         {cursorCharacter}
       </span>

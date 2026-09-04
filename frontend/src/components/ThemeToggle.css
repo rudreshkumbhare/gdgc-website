@@ -1,0 +1,79 @@
+/* =========================================
+   ThemeToggle Button — Super AMOLED Switcher
+   ========================================= */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  padding: 6px 14px 6px 8px;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  height: 38px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  pointer-events: auto;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.04);
+  box-shadow: var(--shadow-md);
+  border-color: var(--google-blue);
+}
+
+.theme-toggle--dark {
+  background: rgba(18, 19, 22, 0.95);
+  color: #f8f9fa;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.theme-toggle--dark:hover {
+  border-color: var(--google-blue);
+  box-shadow: 0 4px 20px rgba(66, 133, 244, 0.4);
+}
+
+/* Track & Sliding Thumb */
+.theme-toggle__track {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--blue-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle--dark .theme-toggle__track {
+  background: rgba(66, 133, 244, 0.25);
+  transform: rotate(360deg);
+}
+
+.theme-toggle__thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle__icon {
+  color: var(--google-blue);
+  transition: transform 0.4s ease, color 0.3s ease;
+}
+
+.theme-toggle--dark .theme-toggle__icon {
+  color: #6ba4f8;
+}
+
+.theme-toggle__text {
+  line-height: 1;
+  font-size: 11.5px;
+}

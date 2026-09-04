@@ -1,4 +1,6 @@
 import './Footer.css'
+import ScrollReveal from './ui/ScrollReveal'
+import ArrowFillButton from './ui/arrow-fill-button'
 
 export default function Footer() {
   return (
@@ -14,38 +16,45 @@ export default function Footer() {
           </div>
 
           <div className="footer__cta-content">
-            <span className="tag tag-blue footer__cta-badge">Join 500+ Developers</span>
-            <h2 className="footer__cta-title">
+            <ScrollReveal as="span" className="tag tag-blue footer__cta-badge">
+              Join 500+ Developers
+            </ScrollReveal>
+            <ScrollReveal as="h2" className="footer__cta-title">
               Ready to start your developer journey with GDGC PCCOE?
-            </h2>
-            <p className="footer__cta-desc">
+            </ScrollReveal>
+            <ScrollReveal as="p" className="footer__cta-desc" baseOpacity={0.2} blurStrength={4}>
               Get access to exclusive Google Cloud credits, study jams, mentorship, and join our active Discord & WhatsApp community channels.
-            </p>
+            </ScrollReveal>
 
-            <div className="footer__cta-actions">
-              <a
+            <ScrollReveal as="div" className="footer__cta-actions">
+              <ArrowFillButton
+                id="footer-join-community-btn"
+                btnText="Join Chapter on GDG Portal"
                 href="https://gdg.community.dev"
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-primary footer__primary-btn"
-                id="footer-join-community-btn"
-              >
-                Join Chapter on GDG Portal
-              </a>
-              <a href="#events" className="btn btn-outline footer__secondary-btn">
-                Browse Events
-              </a>
-            </div>
+                bgColor="#4285F4"
+                textColor="#ffffff"
+                fillBgColor="#ffffff"
+                fillTextColor="#4285F4"
+              />
+              <ArrowFillButton
+                btnText="Browse Events"
+                href="#events"
+                transparent
+                textColor="var(--text-primary)"
+                fillBgColor="#34A853"
+                fillTextColor="#ffffff"
+                borderColor="#34A853"
+              />
+            </ScrollReveal>
           </div>
         </div>
 
         {/* Main Footer Links */}
-        <div className="footer__body">
+        <ScrollReveal as="div" className="footer__body" baseOpacity={0.3} blurStrength={4}>
           <div className="footer__brand">
             <div className="footer__logo">
-              <div className="google-dots">
-                <span></span><span></span><span></span><span></span>
-              </div>
               <span className="footer__logo-text">GDGC PCCOE</span>
             </div>
             <p className="footer__brand-desc">
@@ -85,7 +94,7 @@ export default function Footer() {
               </ul>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Footer Bottom Notice */}
         <div className="footer__bottom">

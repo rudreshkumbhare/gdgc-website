@@ -1,5 +1,6 @@
 import './About.css'
 import ScrollReveal from './ui/ScrollReveal'
+import ArrowFillButton from './ui/arrow-fill-button'
 
 const PILLARS = [
   {
@@ -49,14 +50,14 @@ export default function About() {
     <section className="about section" id="about" aria-labelledby="about-heading">
       <div className="container">
         {/* Top label */}
-        <div className="section-label animate-fadeIn">
+        <ScrollReveal as="div" className="section-label">
           <span className="tag tag-blue">About Us</span>
-        </div>
+        </ScrollReveal>
 
         <div className="about__layout">
           {/* Left — text with ScrollReveal */}
           <div className="about__text">
-            <h2 className="about__heading" id="about-heading">
+            <ScrollReveal as="h2" className="about__heading" id="about-heading">
               We're <span className="about__heading-g">G</span>
               <span className="about__heading-o1">o</span>
               <span className="about__heading-o2">o</span>
@@ -64,38 +65,46 @@ export default function About() {
               <span className="about__heading-e">l</span>
               <span className="about__heading-e2">e</span>'s
               <br />community at PCCOE.
-            </h2>
+            </ScrollReveal>
 
-            <ScrollReveal baseOpacity={0.2} enableBlur={true} blurStrength={3}>
+            <ScrollReveal as="p" className="about__para" baseOpacity={0.2} blurStrength={4}>
               Google Developer Groups on Campus GDGC PCCOE is an official student chapter at Pimpri Chinchwad College of Engineering Pune. We bring global technology energy right to your campus.
             </ScrollReveal>
 
-            <ScrollReveal baseOpacity={0.2} enableBlur={true} blurStrength={3}>
+            <ScrollReveal as="p" className="about__para" baseOpacity={0.2} blurStrength={4}>
               From Flutter and Firebase to Cloud and Machine Learning, we bridge classroom learning and industry-ready skills for every passionate developer.
             </ScrollReveal>
 
-            <div className="about__badges">
+            <ScrollReveal as="div" className="about__badges">
               <span className="tag tag-blue">Google Supported</span>
               <span className="tag tag-green">Open to All</span>
               <span className="tag tag-red">Student Led</span>
               <span className="tag tag-yellow">Free Events</span>
-            </div>
+            </ScrollReveal>
 
-            <a href="#join" className="btn btn-primary about__cta" id="about-join-btn">
-              Become a Member
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-              </svg>
-            </a>
+            <ScrollReveal as="div" className="about__cta-wrap">
+              <ArrowFillButton
+                id="about-join-btn"
+                btnText="Become a Member"
+                href="#join"
+                bgColor="#4285F4"
+                textColor="#ffffff"
+                fillBgColor="#ffffff"
+                fillTextColor="#4285F4"
+              />
+            </ScrollReveal>
           </div>
 
           {/* Right — pillar cards */}
           <div className="about__pillars stagger">
             {PILLARS.map((p) => (
-              <article
+              <ScrollReveal
                 key={p.title}
-                className={`about__pillar about__pillar--${p.color} animate-scaleIn`}
+                as="article"
+                className={`about__pillar about__pillar--${p.color}`}
                 aria-label={`${p.title}: ${p.desc}`}
+                baseOpacity={0.2}
+                blurStrength={6}
               >
                 <div className={`about__pillar-icon icon-${p.color}`}>
                   {p.icon}
@@ -104,7 +113,7 @@ export default function About() {
                   <h3 className="about__pillar-title">{p.title}</h3>
                   <p className="about__pillar-desc">{p.desc}</p>
                 </div>
-              </article>
+              </ScrollReveal>
             ))}
           </div>
         </div>

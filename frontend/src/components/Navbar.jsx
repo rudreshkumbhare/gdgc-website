@@ -22,8 +22,8 @@ export default function Navbar() {
       socialItems={socialItems}
       displaySocials={true}
       displayItemNumbering={false}
-      menuButtonColor="#202124"
-      openMenuButtonColor="#202124"
+      menuButtonColor="var(--text-primary)"
+      openMenuButtonColor="var(--text-primary)"
       changeMenuColorOnOpen={false}
       colors={['#4285F4', '#EA4335', '#FBBC04', '#34A853']}
       accentColor="#4285F4"

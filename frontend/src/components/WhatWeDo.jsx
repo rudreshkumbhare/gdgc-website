@@ -1,5 +1,39 @@
 import './WhatWeDo.css'
 import ScrollReveal from './ui/ScrollReveal'
+import { useMagneticHover } from './ui/useMagneticHover'
+import ArrowFillButton from './ui/arrow-fill-button'
+
+// Magnetic activity card wrapper
+function MagneticWWDCard({ act }) {
+  const { cardRef, glowRef } = useMagneticHover({ strength: 0.25, tiltStrength: 9, lift: true })
+  return (
+    <article
+      ref={cardRef}
+      className={`wwd__card wwd__card--${act.color} animate-fadeUp`}
+      id={`wwd-card-${act.id}`}
+      role="listitem"
+      aria-label={act.title}
+    >
+      <div ref={glowRef} className="wwd__card-glow" aria-hidden="true" />
+      <div className="wwd__card-top">
+        <div className={`wwd__card-icon icon-${act.color}`}>
+          {act.icon}
+        </div>
+        <div className="wwd__card-stat">
+          <span className={`wwd__stat-num stat-${act.color}`}>{act.count}</span>
+          <span className="wwd__stat-label">{act.countLabel}</span>
+        </div>
+      </div>
+      <h3 className="wwd__card-title">{act.title}</h3>
+      <p className="wwd__card-desc">{act.desc}</p>
+      <div className="wwd__card-tags">
+        {act.tags.map((t) => (
+          <span key={t} className={`tag tag-${act.color} wwd__tag`}>{t}</span>
+        ))}
+      </div>
+    </article>
+  )
+}
 
 const ACTIVITIES = [
   {
@@ -94,64 +128,53 @@ export default function WhatWeDo() {
       <div className="container">
         {/* Header */}
         <div className="wwd__header">
-          <span className="tag tag-red section-label-tag">What We Do</span>
-          <h2 className="wwd__heading" id="wwd-heading">
+          <ScrollReveal as="div" className="tag tag-red section-label-tag">
+            What We Do
+          </ScrollReveal>
+          <ScrollReveal as="h2" className="wwd__heading" id="wwd-heading">
             Everything you need to
             <br />
             <span className="wwd__heading-accent">level&nbsp;up</span> as a developer.
-          </h2>
-          <ScrollReveal baseOpacity={0.25} enableBlur={true} blurStrength={3}>
+          </ScrollReveal>
+          <ScrollReveal as="p" className="wwd__sub" baseOpacity={0.25} blurStrength={4}>
             From beginner-friendly workshops to advanced hackathons GDGC PCCOE has an activity for every stage of your journey.
           </ScrollReveal>
         </div>
 
-        {/* Cards grid */}
+        {/* Cards grid — magnetic hover with ScrollReveal */}
         <div className="wwd__grid stagger" role="list">
           {ACTIVITIES.map((act) => (
-            <article
-              key={act.id}
-              className={`wwd__card wwd__card--${act.color} animate-fadeUp`}
-              id={`wwd-card-${act.id}`}
-              role="listitem"
-              aria-label={act.title}
-            >
-              {/* Top row: icon + count */}
-              <div className="wwd__card-top">
-                <div className={`wwd__card-icon icon-${act.color}`}>
-                  {act.icon}
-                </div>
-                <div className="wwd__card-stat">
-                  <span className={`wwd__stat-num stat-${act.color}`}>{act.count}</span>
-                  <span className="wwd__stat-label">{act.countLabel}</span>
-                </div>
-              </div>
-
-              {/* Content */}
-              <h3 className="wwd__card-title">{act.title}</h3>
-              <p className="wwd__card-desc">{act.desc}</p>
-
-              {/* Tags */}
-              <div className="wwd__card-tags">
-                {act.tags.map((t) => (
-                  <span key={t} className={`tag tag-${act.color} wwd__tag`}>{t}</span>
-                ))}
-              </div>
-            </article>
+            <ScrollReveal key={act.id} as="div" baseOpacity={0.2} blurStrength={6}>
+              <MagneticWWDCard act={act} />
+            </ScrollReveal>
           ))}
         </div>
 
         {/* Bottom CTA bar */}
-        <div className="wwd__cta-bar animate-fadeUp">
+        <ScrollReveal as="div" className="wwd__cta-bar animate-fadeUp" baseOpacity={0.25} blurStrength={4}>
           <p>Ready to dive in?</p>
           <div className="wwd__cta-btns">
-            <a href="#events" className="btn btn-primary" id="wwd-events-btn">
-              See Upcoming Events
-            </a>
-            <a href="#join" className="btn btn-outline" id="wwd-join-btn">
-              Join for Free
-            </a>
+            <ArrowFillButton
+              id="wwd-events-btn"
+              btnText="See Upcoming Events"
+              href="#events"
+              bgColor="#FBBC04"
+              textColor="#1a1a1a"
+              fillBgColor="#1a1a1a"
+              fillTextColor="#FBBC04"
+            />
+            <ArrowFillButton
+              id="wwd-join-btn"
+              btnText="Join for Free"
+              href="#join"
+              transparent
+              textColor="var(--text-primary)"
+              fillBgColor="#4285F4"
+              fillTextColor="#ffffff"
+              borderColor="#4285F4"
+            />
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   )

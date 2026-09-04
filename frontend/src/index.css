@@ -85,6 +85,71 @@
   --transition-fast:   150ms ease;
   --transition-normal: 250ms ease;
   --transition-slow:   400ms ease;
+
+  /* === ArrowFillButton auto fill (light = white, dark = black) === */
+  --btn-auto-fill:      #ffffff;
+  --btn-auto-fill-text: #1a1a1a;
+}
+
+/* === Super AMOLED Dark Mode (Deep Pitch Black #000000) === */
+[data-theme="dark"] {
+  --bg-primary:   #000000;
+  --bg-secondary: #08080A;
+  --bg-tertiary:  #121316;
+
+  --text-primary:   #F8F9FA;
+  --text-secondary: #A0A6B0;
+  --text-muted:     #6C757D;
+
+  --border-color:   #1E2024;
+
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.7);
+  --shadow-md:  0 8px 24px rgba(0,0,0,0.85);
+  --shadow-lg:  0 16px 48px rgba(0,0,0,0.92);
+  --shadow-xl:  0 24px 64px rgba(0,0,0,0.98);
+
+  --gray-50:  #0C0D0F;
+  --gray-100: #141518;
+  --gray-200: #1E2024;
+  --gray-400: #3C4043;
+  --gray-500: #80868B;
+  --gray-700: #BDC1C6;
+  --gray-800: #E8EAED;
+  --gray-900: #FFFFFF;
+
+  --blue-50:   rgba(66, 133, 244, 0.18);
+  --blue-100:  rgba(66, 133, 244, 0.35);
+  --blue-200:  rgba(66, 133, 244, 0.5);
+  --blue-600:  #5294FF;
+
+  --red-50:    rgba(234, 67, 53, 0.18);
+  --red-100:   rgba(234, 67, 53, 0.35);
+  --red-600:   #FF5343;
+
+  --yellow-50:  rgba(251, 188, 4, 0.18);
+  --yellow-100: rgba(251, 188, 4, 0.35);
+  --yellow-600: #FFC61A;
+
+  --green-50:   rgba(52, 168, 83, 0.18);
+  --green-100:  rgba(52, 168, 83, 0.35);
+  --green-600:  #42C865;
+
+  /* ArrowFillButton fill flips to pure black in AMOLED dark mode */
+  --btn-auto-fill:      #090a0f;
+  --btn-auto-fill-text: #ffffff;
+}
+
+[data-theme="dark"] .tag-blue   { background: rgba(66, 133, 244, 0.2); color: #60a5fa; border: 1px solid rgba(66, 133, 244, 0.4); }
+[data-theme="dark"] .tag-red    { background: rgba(234, 67, 53, 0.2);  color: #f87171; border: 1px solid rgba(234, 67, 53, 0.4); }
+[data-theme="dark"] .tag-yellow { background: rgba(251, 188, 4, 0.2);  color: #fbbf24; border: 1px solid rgba(251, 188, 4, 0.4); }
+[data-theme="dark"] .tag-green  { background: rgba(52, 168, 83, 0.2);  color: #4ade80; border: 1px solid rgba(52, 168, 83, 0.4); }
+
+/* === Smooth Theme Color Transitions === */
+html, body, .app, section, header, footer, article, div, nav, button, span, p, h1, h2, h3, h4, h5, h6, a {
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
@@ -168,14 +233,17 @@ body {
   align-items: center;
   padding: 4px 14px;
   border-radius: var(--radius-full);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.03em;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all var(--transition-fast);
 }
-.tag-blue   { background: var(--blue-50);   color: var(--blue-600); }
-.tag-red    { background: var(--red-50);    color: var(--red-600); }
-.tag-yellow { background: var(--yellow-50); color: var(--yellow-600); }
-.tag-green  { background: var(--green-50);  color: var(--green-600); }
+.tag-blue   { background: #e8f0fe; color: #1a73e8; border: 1px solid rgba(66, 133, 244, 0.25); }
+.tag-red    { background: #fce8e6; color: #d93025; border: 1px solid rgba(234, 67, 53, 0.25); }
+.tag-yellow { background: #fef7e0; color: #b06000; border: 1px solid rgba(251, 188, 4, 0.3); }
+.tag-green  { background: #e6f4ea; color: #188038; border: 1px solid rgba(52, 168, 83, 0.25); }
 
 /* === Google-color dot decoration (FIXED PERFECT CIRCLES) === */
 .google-dots span {
@@ -372,7 +440,7 @@ body {
 .preloader-overlay {
   position: fixed;
   inset: 0;
-  background: #ffffff; /* Pure white background */
+  background: var(--bg-primary);
   z-index: 9999;
   display: flex;
   flex-direction: column;
