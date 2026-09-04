@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Events.css'
 
-const INITIAL_EVENTS = [
+const FALLBACK_EVENTS = [
   {
     id: 'evt-1',
     title: 'Google Cloud Study Jam 2026',
@@ -56,13 +56,29 @@ const INITIAL_EVENTS = [
   }
 ]
 
-export default function Events({ onOpenAdminModal, customEvents = [] }) {
+export default function Events() {
+  const [backendEvents, setBackendEvents] = useState([])
   const [activeFilter, setActiveFilter] = useState('All')
 
-  const allEvents = [...customEvents, ...INITIAL_EVENTS]
+  // Fetch events from backend API
+  useEffect(() => {
+    fetch('http://localhost:5001/api/events')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.data) {
+          setBackendEvents(data.data)
+        }
+      })
+      .catch((err) => {
+        console.warn('Backend API offline, using fallback events:', err)
+        setBackendEvents(FALLBACK_EVENTS)
+      })
+  }, [])
+
+  const displayEvents = backendEvents.length > 0 ? backendEvents : FALLBACK_EVENTS
   const filters = ['All', 'Upcoming', 'Past', 'Cloud', 'Mobile', 'AI / ML']
 
-  const filteredEvents = allEvents.filter((evt) => {
+  const filteredEvents = displayEvents.filter((evt) => {
     if (activeFilter === 'All') return true
     if (activeFilter === 'Upcoming') return evt.status === 'Upcoming'
     if (activeFilter === 'Past') return evt.status === 'Past'
@@ -72,7 +88,7 @@ export default function Events({ onOpenAdminModal, customEvents = [] }) {
   return (
     <section className="events section" id="events" aria-labelledby="events-heading">
       <div className="container">
-        {/* Header with Admin Toggle */}
+        {/* Public Header */}
         <div className="events__header-row">
           <div>
             <span className="tag tag-yellow section-label-tag">Events & Workshops</span>
@@ -82,19 +98,6 @@ export default function Events({ onOpenAdminModal, customEvents = [] }) {
             <p className="events__sub">
               Join our flagship technical events, bootcamps, and hackathons hosted right here at PCCOE.
             </p>
-          </div>
-
-          <div className="events__admin-bar">
-            <button
-              className="btn btn-outline events__admin-btn"
-              onClick={onOpenAdminModal}
-              id="push-event-admin-btn"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-              </svg>
-              + Push Event (Admin)
-            </button>
           </div>
         </div>
 

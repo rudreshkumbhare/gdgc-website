@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -7,40 +7,34 @@ import WhatWeDo from './components/WhatWeDo'
 import Events from './components/Events'
 import Team from './components/Team'
 import Footer from './components/Footer'
-import AdminModal from './components/AdminModal'
+import AdminDashboard from './components/AdminDashboard'
 
 function App() {
-  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false)
-  const [customEvents, setCustomEvents] = useState([])
+  const [currentPath, setCurrentPath] = useState(window.location.pathname)
 
-  const handleOpenAdminModal = () => setIsAdminModalOpen(true)
-  const handleCloseAdminModal = () => setIsAdminModalOpen(false)
+  useEffect(() => {
+    const handlePopState = () => setCurrentPath(window.location.pathname)
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
-  const handleAddEvent = (newEvent) => {
-    setCustomEvents((prev) => [newEvent, ...prev])
+  // If path is /admin, render secret Admin Portal
+  if (currentPath === '/admin' || currentPath === '/admin/') {
+    return <AdminDashboard />
   }
 
+  // Otherwise, render 100% clean public website for normal visitors
   return (
     <div className="app">
-      <Navbar onOpenAdminModal={handleOpenAdminModal} />
+      <Navbar />
       <main>
         <Hero />
         <About />
         <WhatWeDo />
-        <Events
-          isAdminModalOpen={isAdminModalOpen}
-          onOpenAdminModal={handleOpenAdminModal}
-          customEvents={customEvents}
-        />
+        <Events />
         <Team />
       </main>
       <Footer />
-
-      <AdminModal
-        isOpen={isAdminModalOpen}
-        onClose={handleCloseAdminModal}
-        onAddEvent={handleAddEvent}
-      />
     </div>
   )
 }

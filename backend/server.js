@@ -12,7 +12,7 @@ let events = [
   {
     id: 'evt-1',
     title: 'Google Cloud Study Jam 2026',
-    date: '2026-09-20',
+    date: 'Sep 20, 2026',
     time: '10:00 AM - 4:00 PM',
     venue: 'PCCOE Main Auditorium & Online',
     category: 'Cloud',
@@ -25,7 +25,7 @@ let events = [
   {
     id: 'evt-2',
     title: 'Flutter Forward Hackathon',
-    date: '2026-10-05',
+    date: 'Oct 05, 2026',
     time: '9:00 AM (24 Hours)',
     venue: 'PCCOE Tech Lab 3',
     category: 'Mobile',
@@ -38,7 +38,7 @@ let events = [
   {
     id: 'evt-3',
     title: 'GenAI & Gemini API Masterclass',
-    date: '2026-10-18',
+    date: 'Oct 18, 2026',
     time: '2:00 PM - 5:00 PM',
     venue: 'Seminar Hall 2',
     category: 'AI / ML',
@@ -51,19 +51,31 @@ let events = [
   {
     id: 'evt-4',
     title: 'GDGC Orientation & Tech Kickoff',
-    date: '2026-08-15',
+    date: 'Aug 15, 2026',
     time: '11:00 AM - 1:00 PM',
     venue: 'PCCOE Campus Ground',
     category: 'Community',
     color: 'green',
     description: 'Our annual kickoff meeting welcoming 500+ new campus members to the GDGC PCCOE family.',
-    registrationLink: '',
+    registrationLink: '#',
     status: 'Past',
     banner: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80'
   }
 ];
 
-// Routes
+// Root endpoint — API Status Page
+app.get('/', (req, res) => {
+  res.json({
+    status: 'Online 🚀',
+    service: 'GDGC PCCOE Backend API',
+    version: '1.0.0',
+    endpoints: {
+      getAllEvents: 'GET /api/events',
+      createEvent: 'POST /api/admin/events',
+      deleteEvent: 'DELETE /api/admin/events/:id'
+    }
+  });
+});
 
 // Get all events (User API)
 app.get('/api/events', (req, res) => {

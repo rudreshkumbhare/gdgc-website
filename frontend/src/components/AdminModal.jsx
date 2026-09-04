@@ -13,6 +13,7 @@ export default function AdminModal({ isOpen, onClose, onAddEvent }) {
     registrationLink: '#',
     banner: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80'
   })
+  const [submitting, setSubmitting] = useState(false)
 
   if (!isOpen) return null
 
@@ -21,31 +22,48 @@ export default function AdminModal({ isOpen, onClose, onAddEvent }) {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!formData.title || !formData.date) return
 
-    const newEvent = {
-      ...formData,
-      id: `evt-${Date.now()}`,
-      status: 'Upcoming'
+    setSubmitting(true)
+
+    try {
+      // Send to backend API
+      const res = await fetch('http://localhost:5001/api/admin/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await res.json()
+
+      if (data.success && data.data) {
+        onAddEvent(data.data)
+      } else {
+        // Fallback local addition if backend response differs
+        onAddEvent({ ...formData, id: `evt-${Date.now()}`, status: 'Upcoming' })
+      }
+    } catch (err) {
+      console.warn('Backend unavailable, adding locally:', err)
+      onAddEvent({ ...formData, id: `evt-${Date.now()}`, status: 'Upcoming' })
+    } finally {
+      setSubmitting(false)
+      onClose()
+
+      // Reset form
+      setFormData({
+        title: '',
+        date: '',
+        time: '',
+        venue: '',
+        category: 'Cloud',
+        color: 'blue',
+        description: '',
+        registrationLink: '#',
+        banner: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80'
+      })
     }
-
-    onAddEvent(newEvent)
-    onClose()
-
-    // Reset form
-    setFormData({
-      title: '',
-      date: '',
-      time: '',
-      venue: '',
-      category: 'Cloud',
-      color: 'blue',
-      description: '',
-      registrationLink: '#',
-      banner: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80'
-    })
   }
 
   return (
@@ -155,11 +173,11 @@ export default function AdminModal({ isOpen, onClose, onAddEvent }) {
           </div>
 
           <div className="admin-modal__actions">
-            <button type="button" className="btn btn-outline" onClick={onClose}>
+            <button type="button" className="btn btn-outline" onClick={onClose} disabled={submitting}>
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary">
-              Publish Event Live
+            <button type="submit" className="btn btn-primary" disabled={submitting}>
+              {submitting ? 'Publishing...' : 'Publish Event Live'}
             </button>
           </div>
         </form>
