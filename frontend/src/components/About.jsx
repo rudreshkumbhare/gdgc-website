@@ -1,4 +1,5 @@
 import './About.css'
+import ScrollReveal from './ui/ScrollReveal'
 
 const PILLARS = [
   {
@@ -53,8 +54,8 @@ export default function About() {
         </div>
 
         <div className="about__layout">
-          {/* Left — text */}
-          <div className="about__text animate-slideRight">
+          {/* Left — text with ScrollReveal */}
+          <div className="about__text">
             <h2 className="about__heading" id="about-heading">
               We're <span className="about__heading-g">G</span>
               <span className="about__heading-o1">o</span>
@@ -65,17 +66,13 @@ export default function About() {
               <br />community at PCCOE.
             </h2>
 
-            <p className="about__para">
-              Google Developer Groups on Campus (GDGC) PCCOE is an official
-              student chapter at Pimpri Chinchwad College of Engineering,
-              Pune. We're part of a global network of 1,400+ GDG communities
-              in 120+ countries — and we bring that energy right to your campus.
-            </p>
-            <p className="about__para">
-              From Flutter and Firebase to Cloud and Machine Learning, we
-              bridge the gap between classroom learning and industry-ready
-              skills. No prior experience needed — just curiosity and passion.
-            </p>
+            <ScrollReveal baseOpacity={0.2} enableBlur={true} blurStrength={3}>
+              Google Developer Groups on Campus GDGC PCCOE is an official student chapter at Pimpri Chinchwad College of Engineering Pune. We bring global technology energy right to your campus.
+            </ScrollReveal>
+
+            <ScrollReveal baseOpacity={0.2} enableBlur={true} blurStrength={3}>
+              From Flutter and Firebase to Cloud and Machine Learning, we bridge classroom learning and industry-ready skills for every passionate developer.
+            </ScrollReveal>
 
             <div className="about__badges">
               <span className="tag tag-blue">Google Supported</span>

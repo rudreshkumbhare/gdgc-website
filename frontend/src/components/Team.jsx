@@ -1,4 +1,5 @@
 import './Team.css'
+import ScrollReveal from './ui/ScrollReveal'
 
 const TEAM_MEMBERS = [
   {
@@ -73,9 +74,9 @@ export default function Team() {
           <h2 className="team__heading" id="team-heading">
             Meet the Minds Behind <span className="underline-green">GDGC PCCOE</span>
           </h2>
-          <p className="team__sub">
-            Passionate student leaders, developers, and creators working together to build a strong tech community.
-          </p>
+          <ScrollReveal baseOpacity={0.25} enableBlur={true} blurStrength={3}>
+            Passionate student leaders developers and creators working together to build a strong tech community.
+          </ScrollReveal>
         </div>
 
         {/* Team Grid */}

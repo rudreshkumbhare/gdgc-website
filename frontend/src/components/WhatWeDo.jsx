@@ -1,4 +1,5 @@
 import './WhatWeDo.css'
+import ScrollReveal from './ui/ScrollReveal'
 
 const ACTIVITIES = [
   {
@@ -99,10 +100,9 @@ export default function WhatWeDo() {
             <br />
             <span className="wwd__heading-accent">level&nbsp;up</span> as a developer.
           </h2>
-          <p className="wwd__sub">
-            From beginner-friendly workshops to advanced hackathons — GDGC PCCOE
-            has an activity for every stage of your journey.
-          </p>
+          <ScrollReveal baseOpacity={0.25} enableBlur={true} blurStrength={3}>
+            From beginner-friendly workshops to advanced hackathons GDGC PCCOE has an activity for every stage of your journey.
+          </ScrollReveal>
         </div>
 
         {/* Cards grid */}

@@ -9,6 +9,7 @@ import Team from './components/Team'
 import Footer from './components/Footer'
 import AdminDashboard from './components/AdminDashboard'
 import BoxLoader from './components/ui/box-loader'
+import CustomCursor from './components/CustomCursor'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -35,6 +36,9 @@ function App() {
 
   return (
     <div className="app">
+      {/* Google 4-Color Magnetic Fluid Custom Cursor */}
+      <CustomCursor />
+
       {/* Preloader Overlay (Google Color 3D Blocks on White Background) */}
       <div className={`preloader-overlay ${!loading ? 'preloader-overlay--hidden' : ''}`}>
         <BoxLoader />

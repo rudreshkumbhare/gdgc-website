@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './Events.css'
+import ScrollReveal from './ui/ScrollReveal'
 
 const FALLBACK_EVENTS = [
   {
@@ -95,9 +96,9 @@ export default function Events() {
             <h2 className="events__heading" id="events-heading">
               Connect, Learn & <span className="underline-yellow">Build Together</span>
             </h2>
-            <p className="events__sub">
-              Join our flagship technical events, bootcamps, and hackathons hosted right here at PCCOE.
-            </p>
+            <ScrollReveal baseOpacity={0.25} enableBlur={true} blurStrength={3}>
+              Join our flagship technical events bootcamps and hackathons hosted right here at PCCOE.
+            </ScrollReveal>
           </div>
         </div>
 

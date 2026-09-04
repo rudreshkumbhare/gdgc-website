@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import './Hero.css'
+import TextType from './ui/TextType'
 
 const FLOATING_TECH = [
   { label: 'Flutter',      color: 'blue',   top: '18%', left: '8%',  delay: '0s'   },
@@ -81,31 +82,25 @@ export default function Hero() {
           <span>Google Developer Groups on Campus</span>
         </div>
 
-        {/* Headline */}
+        {/* Headline with React Bits TextType integration */}
         <h1 className="hero__headline animate-fadeUp">
           Build the Future
           <br />
           <span className="hero__headline-highlight">
-            <span className="hl--blue">L</span>
-            <span className="hl--red">e</span>
-            <span className="hl--yellow">a</span>
-            <span className="hl--green">r</span>
-            <span className="hl--blue">n</span>
-            <span>.</span>
-            &nbsp;
-            <span className="hl--red">G</span>
-            <span className="hl--yellow">r</span>
-            <span className="hl--green">o</span>
-            <span className="hl--blue">w</span>
-            <span>.</span>
-            &nbsp;
-            <span className="hl--yellow">I</span>
-            <span className="hl--green">m</span>
-            <span className="hl--blue">p</span>
-            <span className="hl--red">a</span>
-            <span className="hl--yellow">c</span>
-            <span className="hl--green">t</span>
-            <span>.</span>
+            <TextType
+              text={[
+                "Learn. Grow. Impact.",
+                "Google Cloud Study Jams.",
+                "Flutter & Mobile Dev.",
+                "GenAI & Gemini API."
+              ]}
+              typingSpeed={60}
+              deletingSpeed={35}
+              pauseDuration={2000}
+              showCursor={true}
+              cursorCharacter="|"
+              textColors={['#4285F4', '#EA4335', '#FBBC04', '#34A853']}
+            />
           </span>
         </h1>
 

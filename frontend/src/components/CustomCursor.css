@@ -1,0 +1,111 @@
+/* =========================================
+   GDGC PCCOE — 60FPS Google Brand Custom Cursor
+   ========================================= */
+
+@media (pointer: fine) {
+  body, a, button, input, select, textarea {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99999;
+}
+
+/* Precision Inner Dot */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--google-blue);
+  border-radius: 50%;
+  margin-top: -4px;
+  margin-left: -4px;
+  pointer-events: none;
+  will-change: transform;
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+}
+
+.cursor-dot--active {
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  margin-left: -6px;
+  opacity: 0.8;
+}
+
+/* Trailing Smooth Ring */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-top: -18px;
+  margin-left: -18px;
+  pointer-events: none;
+  border: 1.5px solid rgba(66, 133, 244, 0.4);
+  will-change: transform;
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              margin 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.25s ease,
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+/* Dynamic Color Themes */
+.ring--blue {
+  border-color: rgba(66, 133, 244, 0.5);
+  box-shadow: 0 0 15px rgba(66, 133, 244, 0.2);
+}
+.ring--blue.cursor-ring--active {
+  background: rgba(66, 133, 244, 0.12);
+  border-color: var(--google-blue);
+}
+
+.ring--red {
+  border-color: rgba(234, 67, 53, 0.5);
+  box-shadow: 0 0 15px rgba(234, 67, 53, 0.2);
+}
+.ring--red.cursor-ring--active {
+  background: rgba(234, 67, 53, 0.12);
+  border-color: var(--google-red);
+}
+
+.ring--yellow {
+  border-color: rgba(251, 188, 4, 0.5);
+  box-shadow: 0 0 15px rgba(251, 188, 4, 0.2);
+}
+.ring--yellow.cursor-ring--active {
+  background: rgba(251, 188, 4, 0.12);
+  border-color: var(--yellow-600);
+}
+
+.ring--green {
+  border-color: rgba(52, 168, 83, 0.5);
+  box-shadow: 0 0 15px rgba(52, 168, 83, 0.2);
+}
+.ring--green.cursor-ring--active {
+  background: rgba(52, 168, 83, 0.12);
+  border-color: var(--google-green);
+}
+
+.cursor-ring--active {
+  width: 54px;
+  height: 54px;
+  margin-top: -27px;
+  margin-left: -27px;
+}
+
+@media (pointer: coarse) {
+  .custom-cursor-container {
+    display: none;
+  }
+}
