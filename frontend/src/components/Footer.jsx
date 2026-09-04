@@ -87,8 +87,6 @@ export default function Footer() {
             <div className="footer__col">
               <h4>Connect</h4>
               <ul>
-                <li><a href="#" target="_blank" rel="noreferrer">Discord Community</a></li>
-                <li><a href="#" target="_blank" rel="noreferrer">WhatsApp Group</a></li>
                 <li><a href="#" target="_blank" rel="noreferrer">LinkedIn Page</a></li>
                 <li><a href="#" target="_blank" rel="noreferrer">Instagram</a></li>
               </ul>
@@ -100,7 +98,7 @@ export default function Footer() {
         <div className="footer__bottom">
           <p>© {new Date().getFullYear()} GDGC PCCOE. Built with ❤️ for the student community.</p>
           <p className="footer__disclaimer">
-            Disclaimer: GDGC PCCOE is an independent student group. Activities and opinions expressed herein should in no way be taken as official statements from Google Inc.
+            GDGC PCCOE is an independent student group. Activities and opinions expressed herein should in no way be taken as official statements from Google Inc.
           </p>
         </div>
       </div>

@@ -91,22 +91,21 @@ export default function Hero() {
 
         {/* Headline */}
         <h1 className="hero__headline animate-fadeUp" style={{ animationDelay: '0.25s' }}>
-          Build the Future
+          Built by the Best
           <br />
           <span className="hero__headline-highlight">
             <TextType
               as="span"
               text={[
-                "Learn. Grow. Impact.",
-                "Google Cloud Study Jams.",
-                "Flutter & Mobile Dev.",
-                "GenAI & Gemini API."
+                "BLACKOUT Live Now!",
+                "More Events Coming Soon",
+                "Stay Tuned for Updates"
               ]}
               typingSpeed={60}
               deletingSpeed={35}
-              pauseDuration={1700}
+              pauseDuration={2000}
               showCursor={true}
-              cursorCharacter="|"
+              cursorCharacter="_"
               textColors={['#4285F4', '#EA4335', '#FBBC04', '#34A853']}
             />
           </span>

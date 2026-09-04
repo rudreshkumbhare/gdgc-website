@@ -55,7 +55,7 @@ function ArrowFillButton({
   const resolvedHoverFillBgColor   = hoverFillBgColor   || fillBgColor;
   const resolvedHoverFillTextColor = hoverFillTextColor || fillTextColor;
   const resolvedArrowColor         = arrowColor         || fillTextColor;
-  const resolvedHoverArrowColor    = hoverArrowColor    || fillTextColor;
+  const resolvedHoverArrowColor    = hoverArrowColor    || resolvedHoverFillTextColor;
   const resolvedBorderColor        = borderColor        || bgColor;
 
   const [isReady,         setIsReady]         = useState(false);

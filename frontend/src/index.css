@@ -6,7 +6,6 @@
    Yellow: #FBBC04
    Green:  #34A853
    ========================================= */
-
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -294,11 +293,17 @@ body {
 .stagger > *:nth-child(5) { animation-delay: 0.33s; }
 .stagger > *:nth-child(6) { animation-delay: 0.40s; }
 
-/* === Scrollbar === */
-::-webkit-scrollbar        { width: 8px; }
-::-webkit-scrollbar-track  { background: var(--gray-100); }
-::-webkit-scrollbar-thumb  { background: var(--gray-400); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--gray-500); }
+/* === Hide Native Browser Scrollbar === */
+html, body {
+  -ms-overflow-style: none !important;  /* IE / Edge */
+  scrollbar-width: none !important;     /* Firefox */
+}
+
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
 
 /* === Selection === */
 ::selection { background: var(--blue-50); color: var(--blue-600); }

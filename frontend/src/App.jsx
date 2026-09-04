@@ -11,6 +11,7 @@ import AdminDashboard from './components/AdminDashboard'
 import BoxLoader from './components/ui/box-loader'
 import CustomCursor from './components/CustomCursor'
 import DotParticleCanvas from './components/ui/dot-particles'
+import ScrollProgressBar from './components/ui/ScrollProgressBar'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -37,6 +38,9 @@ function App() {
 
   return (
     <div className="app">
+      {/* Top Google 4-Color Gradient Scroll Progress Bar */}
+      <ScrollProgressBar />
+
       {/* Site-Wide Antigravity Dot Particle Canvas */}
       <DotParticleCanvas
         backgroundColor="transparent"

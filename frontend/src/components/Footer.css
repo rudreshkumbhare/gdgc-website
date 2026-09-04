@@ -54,7 +54,7 @@
 
 .footer__cta-badge {
   margin-bottom: 20px;
-  display: inline-flex;
+  display: inline-block;
 }
 
 .footer__cta-title {

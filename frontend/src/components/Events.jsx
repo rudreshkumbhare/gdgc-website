@@ -102,7 +102,7 @@ function MagneticEventCard({ evt, onOpenModal }) {
             Details
           </button>
           <ArrowFillButton
-            btnText={evt.status === 'Upcoming' ? 'Get Ticket' : 'View Recap'}
+            btnText={evt.status === 'Upcoming' ? ' Register Now' : 'View Recap'}
             href={evt.registrationLink}
             size="sm"
             bgColor={evt.status === 'Upcoming' ? '#4285F4' : '#5f6368'}
