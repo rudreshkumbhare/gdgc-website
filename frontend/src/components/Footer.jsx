@@ -46,8 +46,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Main Footer Links */}
-        <ScrollReveal as="div" className="footer__body" baseOpacity={0.3} blurStrength={4}>
+        {/* Main Footer Links — fade/slide only, no blur: this block spans
+            three full link columns, too large an area to blur cheaply. */}
+        <ScrollReveal as="div" className="footer__body" baseOpacity={0.3} enableBlur={false}>
           <div className="footer__brand">
             <div className="footer__logo">
               <span className="footer__logo-text">GDGC PCCOE</span>
@@ -82,8 +83,8 @@ export default function Footer() {
             <div className="footer__col">
               <h4>Connect</h4>
               <ul>
-                <li><a href="#" target="_blank" rel="noreferrer">LinkedIn Page</a></li>
-                <li><a href="#" target="_blank" rel="noreferrer">Instagram</a></li>
+                <li><a href="https://www.linkedin.com/company/google-developer-groups-on-campus-pccoe/" target="_blank" rel="noreferrer">LinkedIn Page</a></li>
+                <li><a href="https://www.instagram.com/gdgcpccoe/" target="_blank" rel="noreferrer">Instagram</a></li>
               </ul>
             </div>
           </div>

@@ -8,16 +8,31 @@ export default function ScrollProgressBar() {
   const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false
+
+    const update = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight
       if (totalHeight > 0) {
         const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100))
         setScrollProgress(progress)
       }
+      ticking = false
+    }
+
+    // Coalesce scroll events to once per animation frame instead of
+    // re-rendering on every single 'scroll' event (which can fire far
+    // more often than the screen refresh rate during momentum/trackpad
+    // scrolling) — this was adding constant extra render work while
+    // scrolling anywhere on the site.
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(update)
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
+    update()
 
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])

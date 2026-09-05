@@ -141,10 +141,12 @@ export default function WhatWeDo() {
           </ScrollReveal>
         </div>
 
-        {/* Cards grid — magnetic hover with ScrollReveal */}
+        {/* Cards grid — magnetic hover with ScrollReveal (fade/slide only:
+            these cards contain real images, and blurring a photo is far
+            more expensive than blurring text) */}
         <div className="wwd__grid stagger" role="list">
           {ACTIVITIES.map((act) => (
-            <ScrollReveal key={act.id} as="div" baseOpacity={0.2} blurStrength={6}>
+            <ScrollReveal key={act.id} as="div" baseOpacity={0.2} enableBlur={false}>
               <MagneticWWDCard act={act} />
             </ScrollReveal>
           ))}

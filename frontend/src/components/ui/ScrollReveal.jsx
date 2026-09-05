@@ -57,27 +57,59 @@ const ScrollReveal = ({
           opacity: baseOpacity,
           filter: enableBlur ? `blur(${blurStrength}px)` : 'blur(0px)',
           y: 12,
-          willChange: 'opacity, filter, transform',
         });
+
+        const animateIn = () => {
+          gsap.to(targets, {
+            ease: 'power3.out',
+            opacity: 1,
+            filter: 'blur(0px)',
+            y: 0,
+            duration,
+            stagger: targets.length > 1 ? staggerDelay : 0,
+            overwrite: true,
+            // Only promote to a GPU layer for the brief duration of the
+            // animation itself, instead of leaving will-change on for
+            // every revealed element for the rest of the page's life.
+            onStart: () => gsap.set(targets, { willChange: 'opacity, filter, transform' }),
+            onComplete: () => gsap.set(targets, { willChange: 'auto' }),
+          });
+        };
 
         // Animate to visible when element enters viewport — NO scrub
         // so it plays instantly and doesn't stay blurred while reading
-        ScrollTrigger.create({
+        const trigger = ScrollTrigger.create({
           trigger: el,
           scroller,
           start: 'top 90%',   // fires when top of element hits 90% of viewport
-          once: true,          // only animate once, no reverse
-          onEnter: () => {
-            gsap.to(targets, {
-              ease: 'power3.out',
-              opacity: 1,
-              filter: 'blur(0px)',
-              y: 0,
-              duration,
-              stagger: targets.length > 1 ? staggerDelay : 0,
+          onEnter: animateIn,
+          onEnterBack: animateIn,
+          onLeaveBack: () => {
+            // Reset to hidden state when scrolling back up past the trigger,
+            // so the reveal plays again on the next scroll down
+            gsap.set(targets, {
+              opacity: baseOpacity,
+              filter: enableBlur ? `blur(${blurStrength}px)` : 'blur(0px)',
+              y: 12,
+              willChange: 'auto',
             });
           },
         });
+
+        // If the page loads/reloads already scrolled past this element
+        // (e.g. browser scroll restoration), it will already be "active".
+        // Snap straight to the visible state instead of animating —
+        // otherwise every ScrollReveal above the fold fires its blur
+        // animation at once on reload, which is what causes the big
+        // freeze/lag right after a reload further down the page.
+        if (trigger.isActive) {
+          gsap.set(targets, {
+            opacity: 1,
+            filter: 'blur(0px)',
+            y: 0,
+            willChange: 'auto',
+          });
+        }
       }
     }, el);
 

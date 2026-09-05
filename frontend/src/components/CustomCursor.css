@@ -3,7 +3,7 @@
    ========================================= */
 
 @media (pointer: fine) {
-  body, a, button, input, select, textarea {
+  *, *::before, *::after {
     cursor: none !important;
   }
 }

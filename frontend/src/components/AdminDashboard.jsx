@@ -188,6 +188,7 @@ export default function AdminDashboard() {
 
         <div className="admin-grid">
           {/* Left: Create Event Form */}
+                                                                      
           <div className="admin-card">
             <div className="admin-card-header">
               <span className="tag tag-blue">Publish New Event</span>
