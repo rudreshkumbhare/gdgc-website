@@ -535,6 +535,29 @@
   border: 1px solid var(--border-color);
 }
 
+.underline-gradient {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 7px; /* Space between text and line */
+}
+
+.underline-gradient::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px; /* Line thickness */
+  border-radius: 999px; /* Creates fully rounded edges */
+  background: linear-gradient(
+    90deg,
+    var(--google-blue) 0%,
+    var(--google-red) 33%,
+    var(--google-yellow) 66%,
+    var(--google-green) 100%
+  );
+}
+
 /* === Super AMOLED Dark Mode Overrides === */
 [data-theme="dark"] .events__card {
   background: #040405;

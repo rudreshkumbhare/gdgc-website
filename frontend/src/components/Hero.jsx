@@ -4,6 +4,9 @@ import TextType from './ui/TextType'
 import { useCountUp } from './ui/useCountUp'
 import ArrowFillButton from './ui/arrow-fill-button'
 
+// Import the logo from the new assets folder
+import gdgcLogo from '/Users/rudresh/Desktop/gdgc-website/frontend/src/assets/gdgc-logo.svg'
+
 const FLOATING_TECH = [
   { label: 'Flutter',      color: 'blue',   top: '18%', left: '8%',  delay: '0s'   },
   { label: 'Cloud',        color: 'red',    top: '38%', left: '5%',  delay: '0.4s' },
@@ -18,10 +21,9 @@ const FLOATING_TECH = [
 export default function Hero() {
   const heroRef = useRef(null)
 
-  // Animated stat counters — fire when stats section enters view
-  const { count: memberCount,  ref: memberRef  } = useCountUp(500, 2000, 0)
-  const { count: eventCount,   ref: eventRef   } = useCountUp(40,  1800, 150)
-  const { count: projectCount, ref: projectRef } = useCountUp(20,  1600, 300)
+  const { count: memberCount,  ref: memberRef  } = useCountUp(500, 2000, 2000)
+  const { count: eventCount,   ref: eventRef   } = useCountUp(40,  1800, 2150)
+  const { count: projectCount, ref: projectRef } = useCountUp(20,  1600, 2300)
 
   useEffect(() => {
     const hero = heroRef.current
@@ -79,13 +81,10 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Main content — no ScrollReveal here; hero is in viewport on load */}
       <div className="hero__content container">
-        {/* Badge */}
+        {/* Badge with GDGC Logo */}
         <div className="hero__badge animate-fadeUp" style={{ animationDelay: '0.1s' }}>
-          <div className="google-dots">
-            <span></span><span></span><span></span><span></span>
-          </div>
+          <img src={gdgcLogo} alt="GDGC Logo" className="hero__badge-logo" />
           <span>Google Developer Groups on Campus</span>
         </div>
 

@@ -1,8 +1,10 @@
 .scroll-reveal {
-  will-change: opacity, filter;
+  /* will-change is now toggled dynamically in ScrollReveal.jsx only while
+     an element is actively animating, instead of being left on for every
+     revealed element permanently (that was pinning a GPU layer per word
+     for the entire page, which is what caused the growing lag). */
 }
 
 .word {
   display: inline-block;
-  will-change: opacity, filter;
 }

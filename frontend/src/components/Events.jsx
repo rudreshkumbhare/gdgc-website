@@ -213,7 +213,7 @@ export default function Events() {
               Events & Workshops
             </ScrollReveal>
             <ScrollReveal as="h2" className="events__heading" id="events-heading">
-              Connect, Learn & <span className="underline-yellow">Build Together</span>
+              Connect, Learn & <span className="underline-gradient">Build Together</span>
             </ScrollReveal>
             <ScrollReveal as="p" className="events__sub" baseOpacity={0.25} blurStrength={4}>
               Join our flagship technical events, bootcamps, and hackathons hosted right here at PCCOE.
@@ -236,10 +236,13 @@ export default function Events() {
           ))}
         </ScrollReveal>
 
-        {/* Events Grid — Clean cards with ScrollReveal */}
+        {/* Events Grid — Clean cards with ScrollReveal (fade/slide only:
+            each card renders an event photo, and animating blur across a
+            real image is one of the most expensive things a browser can
+            do per frame — this was a big source of the scroll lag) */}
         <div className="events__grid stagger">
           {filteredEvents.map((evt) => (
-            <ScrollReveal key={evt.id} as="div" baseOpacity={0.2} blurStrength={6}>
+            <ScrollReveal key={evt.id} as="div" baseOpacity={0.2} enableBlur={false}>
               <MagneticEventCard evt={evt} onOpenModal={(e) => setSelectedEvent(e)} />
             </ScrollReveal>
           ))}

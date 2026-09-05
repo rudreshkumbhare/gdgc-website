@@ -9,9 +9,8 @@ const menuItems = [
 ]
 
 const socialItems = [
-  { label: 'LinkedIn',  link: 'https://linkedin.com' },
-  { label: 'Instagram', link: 'https://instagram.com' },
-  { label: 'GitHub',    link: 'https://github.com' }
+  { label: 'LinkedIn',  link: 'https://www.linkedin.com/company/google-developer-groups-on-campus-pccoe/' },
+  { label: 'Instagram', link: 'https://www.instagram.com/gdgcpccoe/' },
 ]
 
 export default function Navbar() {

@@ -1,0 +1,257 @@
+/* ==============================
+   Kinetic Team List
+   ============================== */
+.tkl {
+  position: relative;
+}
+
+.tkl__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.tkl__row {
+  position: relative;
+  border-top: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: opacity 0.4s ease;
+}
+
+.tkl__row:last-child {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tkl__row--dimmed {
+  opacity: 0.35;
+}
+
+.tkl__row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 4px;
+}
+
+@media (min-width: 768px) {
+  .tkl__row-main {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 36px 8px;
+  }
+}
+
+.tkl__row-left {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tkl__row--active .tkl__row-left {
+  transform: translateX(16px);
+}
+
+@media (max-width: 767px) {
+  .tkl__row--active.tkl__row .tkl__row-left {
+    transform: none;
+  }
+}
+
+.tkl__index {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.tkl__name {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 5vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.tkl__row--active .tkl__name {
+  color: var(--text-primary);
+}
+
+.tkl__row-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-left: 34px;
+}
+
+@media (min-width: 768px) {
+  .tkl__row-right {
+    padding-left: 0;
+    gap: 20px;
+  }
+}
+
+.tkl__role {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .tkl__role {
+    flex: none;
+  }
+}
+
+.tkl__row--active .tkl__role {
+  color: var(--text-secondary);
+}
+
+.tkl__toggle-icon {
+  display: inline-flex;
+  color: var(--text-muted);
+}
+
+@media (min-width: 768px) {
+  .tkl__toggle-icon {
+    display: none;
+  }
+}
+
+/* === Touch-device inline accordion === */
+.tkl__accordion {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+  background: var(--bg-secondary);
+}
+
+.tkl__accordion--open {
+  max-height: 340px;
+}
+
+.tkl__accordion-inner {
+  padding: 4px 4px 20px;
+}
+
+.tkl__accordion-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.tkl__accordion-media img {
+  width: 100%;
+  height: 100%;
+  /* contain (not cover) so the whole avatar is always visible instead of
+     being cropped/cut off. */
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.tkl__accordion-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), transparent 60%);
+}
+
+/* === Desktop floating cursor preview === */
+.tkl__floating {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.tkl__floating-inner {
+  position: relative;
+  width: 300px;
+  height: 220px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-xl);
+  opacity: 0;
+  transform: scale(0.85);
+  filter: blur(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+.tkl__floating-inner--visible {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0px);
+}
+
+.tkl__floating-img {
+  width: 100%;
+  height: 100%;
+  /* contain (not cover) so the whole avatar is always visible instead of
+     being cropped/cut off. */
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+/* Shared social icon row (used in the row itself and the mobile accordion) */
+.tkl__socials {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.tkl__socials a {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.tkl__socials a:hover {
+  background: var(--google-blue);
+  transform: scale(1.08);
+}
+
+/* Inline variant: sits in the row itself next to the role label
+   (e.g. "LEAD" / "CO-LEAD"), always clickable — not tucked inside
+   the pointer-events:none hover preview where links couldn't be
+   clicked before. */
+.tkl__socials--inline {
+  position: static;
+  gap: 8px;
+}
+
+.tkl__socials--inline a {
+  width: 32px;
+  height: 32px;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+}
+
+.tkl__socials--inline a:hover {
+  background: var(--google-blue);
+  color: #fff;
+  border-color: var(--google-blue);
+}

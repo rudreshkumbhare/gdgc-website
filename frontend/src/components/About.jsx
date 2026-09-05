@@ -101,7 +101,7 @@ export default function About() {
                 className={`about__pillar about__pillar--${p.color}`}
                 aria-label={`${p.title}: ${p.desc}`}
                 baseOpacity={0.2}
-                blurStrength={6}
+                enableBlur={false}
               >
                 <div className={`about__pillar-icon icon-${p.color}`}>
                   {p.icon}

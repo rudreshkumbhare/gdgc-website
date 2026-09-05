@@ -213,6 +213,7 @@
   background: var(--gray-50);
   outline: none;
   transition: all var(--transition-fast);
+  resize: none; /* Removes the resize handle */
 }
 
 .form-input:hover,
@@ -368,4 +369,50 @@
   .admin-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Restores default browser mouse cursor across all admin screens & modals */
+.admin-login-page,
+.admin-dashboard-page,
+.admin-modal-overlay,
+.admin-login-page *,
+.admin-dashboard-page *,
+.admin-modal-overlay * {
+  cursor: auto !important;
+}
+
+/* Restores pointer hand cursor for buttons, links, and input elements */
+.admin-login-page button,
+.admin-dashboard-page button,
+.admin-modal-overlay button,
+.admin-login-page a,
+.admin-dashboard-page a,
+.admin-modal-overlay a,
+.admin-login-page input,
+.admin-dashboard-page input,
+.admin-login-page select,
+.admin-dashboard-page select,
+.admin-modal-overlay select {
+  cursor: pointer !important;
+}
+
+/* 1. Show the standard I-beam text cursor specifically inside text inputs and textareas */
+.form-input,
+.form-textarea,
+input[type="text"],
+input[type="password"],
+input[type="url"],
+textarea {
+  cursor: text !important;
+}
+
+/* 2. Keep standard default arrow cursor for static text like headings, labels, and text containers */
+.admin-page-title,
+.admin-page-title h1,
+.admin-page-title p,
+.admin-card-header h3,
+.admin-event-title,
+.admin-event-meta,
+.form-group label {
+  cursor: default !important;
 }
