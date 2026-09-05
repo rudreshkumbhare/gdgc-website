@@ -3,6 +3,7 @@ import './Hero.css'
 import TextType from './ui/TextType'
 import { useCountUp } from './ui/useCountUp'
 import ArrowFillButton from './ui/arrow-fill-button'
+import gdgcLogo from '../assets/gdgc-logo.svg'
 
 const FLOATING_TECH = [
   { label: 'Flutter',      color: 'blue',   top: '18%', left: '8%',  delay: '0s'   },
@@ -83,9 +84,7 @@ export default function Hero() {
       <div className="hero__content container">
         {/* Badge */}
         <div className="hero__badge animate-fadeUp" style={{ animationDelay: '0.1s' }}>
-          <div className="google-dots">
-            <span></span><span></span><span></span><span></span>
-          </div>
+          <img className="hero__badge-logo" src={gdgcLogo} alt="GDGC" />
           <span>Google Developer Groups on Campus</span>
         </div>
 
