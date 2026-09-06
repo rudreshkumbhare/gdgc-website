@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './AdminModal.css'
+import { API_BASE_URL } from '../lib/apiConfig'
 
 export default function AdminModal({ isOpen, onClose, onAddEvent }) {
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ export default function AdminModal({ isOpen, onClose, onAddEvent }) {
 
     try {
       // Send to backend API
-      const res = await fetch('http://localhost:5001/api/admin/events', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/events`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

@@ -10,6 +10,7 @@ import Gallery from './components/Gallery'
 import Footer from './components/Footer'
 import AdminDashboard from './components/AdminDashboard'
 import BoxLoader from './components/ui/box-loader'
+import PixelLoaderText from './components/ui/PixelLoaderText'
 import CustomCursor from './components/CustomCursor'
 import DotParticleCanvas from './components/ui/dot-particles'
 import ScrollProgressBar from './components/ui/ScrollProgressBar'
@@ -53,16 +54,13 @@ function App() {
       <div className={`preloader-overlay ${!loading ? 'preloader-overlay--hidden' : ''}`}>
         <BoxLoader />
         <div className="preloader-text">
-          <div className="google-dots" style={{ marginBottom: '6px' }}>
-            <span></span><span></span><span></span><span></span>
-          </div>
-          <span className="preloader-title">GDGC PCCOE</span>
+          <PixelLoaderText text="GDGC" />
           <span className="preloader-subtitle">Google Developer Groups on Campus</span>
         </div>
       </div>
 
       <Navbar />
-      <main id="main-content">
+      <main id="main-content" className={`site-reveal ${!loading ? 'site-reveal--in' : ''}`}>
         <Hero />
         <About />
         <WhatWeDo />

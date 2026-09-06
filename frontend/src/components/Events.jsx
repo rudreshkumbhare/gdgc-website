@@ -3,6 +3,7 @@ import './Events.css'
 import ScrollReveal from './ui/ScrollReveal'
 import { useMagneticHover } from './ui/useMagneticHover'
 import ArrowFillButton from './ui/arrow-fill-button'
+import { API_BASE_URL } from '../lib/apiConfig'
 
 // Helper to parse date string into Month and Day for ticket stamp
 function parseDateParts(dateStr) {
@@ -180,7 +181,7 @@ export default function Events() {
 
   // Fetch events from backend API
   useEffect(() => {
-    fetch('http://localhost:5001/api/events')
+    fetch(`${API_BASE_URL}/api/events`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.data) {

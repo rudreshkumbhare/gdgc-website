@@ -392,25 +392,27 @@ html, body {
 
 .boxes .box-1 {
   transform: translate(100%, 0);
-  animation: box1 var(--duration) linear infinite;
+  animation: box1 var(--duration) steps(6, jump-end) infinite;
 }
 
 .boxes .box-2 {
   transform: translate(0, 100%);
-  animation: box2 var(--duration) linear infinite;
+  animation: box2 var(--duration) steps(6, jump-end) infinite;
 }
 
 .boxes .box-3 {
   transform: translate(100%, 100%);
-  animation: box3 var(--duration) linear infinite;
+  animation: box3 var(--duration) steps(6, jump-end) infinite;
 }
 
 .boxes .box-4 {
   transform: translate(200%, 0);
-  animation: box4 var(--duration) linear infinite;
+  animation: box4 var(--duration) steps(6, jump-end) infinite;
 }
 
 /* Universal Face Base — Fully Solid 3D Faces */
+/* Pixel/dither grid overlay (blended over each face's own color below)
+   gives the cubes a retro 8-bit texture instead of a flat smooth fill. */
 .boxes .box > div {
   position: absolute;
   width: 100%;
@@ -418,6 +420,11 @@ html, body {
   top: 0;
   left: 0;
   backface-visibility: visible;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 3px, transparent 3px 6px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0 3px, transparent 3px 6px);
+  background-blend-mode: multiply, multiply;
+  image-rendering: pixelated;
 }
 
 /* 6-Face Transforms */
@@ -446,28 +453,28 @@ html, body {
 }
 
 /* --- Box 1: GOOGLE BLUE (#4285F4) --- */
-.boxes .box-1 > div { background: #4285F4; }
-.boxes .box-1 > div.face-top    { background: #6BA4F8; } /* Highlighted top */
-.boxes .box-1 > div.face-right  { background: #2B6CE0; } /* Shaded right side */
-.boxes .box-1 > div.face-bottom { background: #1B52BA; }
+.boxes .box-1 > div { background-color: #4285F4; }
+.boxes .box-1 > div.face-top    { background-color: #6BA4F8; } /* Highlighted top */
+.boxes .box-1 > div.face-right  { background-color: #2B6CE0; } /* Shaded right side */
+.boxes .box-1 > div.face-bottom { background-color: #1B52BA; }
 
 /* --- Box 2: GOOGLE RED (#EA4335) --- */
-.boxes .box-2 > div { background: #EA4335; }
-.boxes .box-2 > div.face-top    { background: #F26C61; } /* Highlighted top */
-.boxes .box-2 > div.face-right  { background: #C72E21; } /* Shaded right side */
-.boxes .box-2 > div.face-bottom { background: #9E1F14; }
+.boxes .box-2 > div { background-color: #EA4335; }
+.boxes .box-2 > div.face-top    { background-color: #F26C61; } /* Highlighted top */
+.boxes .box-2 > div.face-right  { background-color: #C72E21; } /* Shaded right side */
+.boxes .box-2 > div.face-bottom { background-color: #9E1F14; }
 
 /* --- Box 3: GOOGLE YELLOW (#FBBC04) --- */
-.boxes .box-3 > div { background: #FBBC04; }
-.boxes .box-3 > div.face-top    { background: #FCD03A; } /* Highlighted top */
-.boxes .box-3 > div.face-right  { background: #D9A002; } /* Shaded right side */
-.boxes .box-3 > div.face-bottom { background: #B28200; }
+.boxes .box-3 > div { background-color: #FBBC04; }
+.boxes .box-3 > div.face-top    { background-color: #FCD03A; } /* Highlighted top */
+.boxes .box-3 > div.face-right  { background-color: #D9A002; } /* Shaded right side */
+.boxes .box-3 > div.face-bottom { background-color: #B28200; }
 
 /* --- Box 4: GOOGLE GREEN (#34A853) --- */
-.boxes .box-4 > div { background: #34A853; }
-.boxes .box-4 > div.face-top    { background: #54C873; } /* Highlighted top */
-.boxes .box-4 > div.face-right  { background: #238B42; } /* Shaded right side */
-.boxes .box-4 > div.face-bottom { background: #176B30; }
+.boxes .box-4 > div { background-color: #34A853; }
+.boxes .box-4 > div.face-top    { background-color: #54C873; } /* Highlighted top */
+.boxes .box-4 > div.face-right  { background-color: #238B42; } /* Shaded right side */
+.boxes .box-4 > div.face-bottom { background-color: #176B30; }
 
 /* Keyframes */
 @keyframes box1 {
@@ -503,7 +510,9 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 48px;
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 0.6s ease;
 }
 
 .preloader-overlay--hidden {

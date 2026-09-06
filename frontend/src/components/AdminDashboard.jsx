@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './AdminDashboard.css'
+import { API_BASE_URL } from '../lib/apiConfig'
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -33,7 +34,7 @@ export default function AdminDashboard() {
 
   const fetchEvents = () => {
     setLoading(true)
-    fetch('http://localhost:5001/api/events')
+    fetch(`${API_BASE_URL}/api/events`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.data) {
@@ -72,7 +73,7 @@ export default function AdminDashboard() {
 
     setSubmitting(true)
     try {
-      const res = await fetch('http://localhost:5001/api/admin/events', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/events`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -104,7 +105,7 @@ export default function AdminDashboard() {
     if (!window.confirm('Are you sure you want to delete this event?')) return
 
     try {
-      const res = await fetch(`http://localhost:5001/api/admin/events/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/admin/events/${id}`, {
         method: 'DELETE'
       })
       const data = await res.json()
