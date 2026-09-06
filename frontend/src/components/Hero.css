@@ -109,6 +109,13 @@
 }
 
 /* Badge */
+.hero__badge-logo {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
 .hero__badge {
   font-family: var(--font-display);
   display: inline-flex;

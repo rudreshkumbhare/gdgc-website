@@ -3,6 +3,7 @@ import './Hero.css'
 import TextType from './ui/TextType'
 import { useCountUp } from './ui/useCountUp'
 import ArrowFillButton from './ui/arrow-fill-button'
+import gdgcLogo from '../assets/gdgc-logo.svg'
 
 // Import the logo from the new assets folder
 import gdgcLogo from '/Users/rudresh/Desktop/gdgc-website/frontend/src/assets/gdgc-logo.svg'
@@ -84,7 +85,11 @@ export default function Hero() {
       <div className="hero__content container">
         {/* Badge with GDGC Logo */}
         <div className="hero__badge animate-fadeUp" style={{ animationDelay: '0.1s' }}>
+<<<<<<< HEAD
+          <img className="hero__badge-logo" src={gdgcLogo} alt="GDGC" />
+=======
           <img src={gdgcLogo} alt="GDGC Logo" className="hero__badge-logo" />
+>>>>>>> 08409f38670a4d3d7e407f5325f0d09958f86d20
           <span>Google Developer Groups on Campus</span>
         </div>
 
