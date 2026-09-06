@@ -38,20 +38,17 @@ function App() {
 
   return (
     <div className="app">
-      {/* Top Google 4-Color Gradient Scroll Progress Bar */}
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       <ScrollProgressBar />
 
-      {/* Site-Wide Antigravity Dot Particle Canvas */}
       <DotParticleCanvas
         backgroundColor="transparent"
         particleColor="50, 50, 55"
         animationSpeed={0.006}
       />
 
-      {/* Google 4-Color Magnetic Fluid Custom Cursor */}
       <CustomCursor />
 
-      {/* Preloader Overlay (Google Color 3D Blocks on White Background) */}
       <div className={`preloader-overlay ${!loading ? 'preloader-overlay--hidden' : ''}`}>
         <BoxLoader />
         <div className="preloader-text">
@@ -63,9 +60,8 @@ function App() {
         </div>
       </div>
 
-      {/* Main Website Content */}
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <About />
         <WhatWeDo />

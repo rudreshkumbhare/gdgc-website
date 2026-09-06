@@ -155,15 +155,26 @@ html, body, .app, section, header, footer, article, div, nav, button, span, p, h
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 76px;
   -webkit-font-smoothing: antialiased;
 }
 
 body {
+  min-width: 320px;
   font-family: var(--font-body);
   color: var(--text-primary);
   background: var(--bg-primary);
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* === Utility Classes === */
@@ -314,6 +325,42 @@ html, body {
 :focus-visible {
   outline: 2px solid var(--google-blue);
   outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 16px;
+  z-index: 10000;
+  padding: 10px 16px;
+  border-radius: var(--radius-full);
+  background: var(--gray-900);
+  color: var(--bg-primary);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-180%);
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* =========================================

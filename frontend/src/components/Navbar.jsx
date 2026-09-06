@@ -1,33 +1,78 @@
-import StaggeredMenu from './ui/StaggeredMenu'
+import { useEffect, useState } from 'react'
+import gdgcLogo from '../assets/gdgc-logo.svg'
+import ThemeToggle from './ThemeToggle'
+import './Navbar.css'
 
-const menuItems = [
-  { label: 'ABOUT',       ariaLabel: 'Learn about GDGC PCCOE',     link: '#about',      color: 'blue' },
-  { label: 'WHAT WE DO',  ariaLabel: 'View our activities',        link: '#what-we-do', color: 'red' },
-  { label: 'EVENTS',      ariaLabel: 'Browse upcoming events',     link: '#events',     color: 'yellow' },
-  { label: 'TEAM',        ariaLabel: 'Meet the core team',         link: '#team',       color: 'green' },
-  { label: 'JOIN US',     ariaLabel: 'Join chapter community',     link: '#join',       color: 'blue' },
-]
-
-const socialItems = [
-  { label: 'LinkedIn',  link: 'https://www.linkedin.com/company/google-developer-groups-on-campus-pccoe/' },
-  { label: 'Instagram', link: 'https://www.instagram.com/gdgcpccoe/' },
+const NAV_ITEMS = [
+  { label: 'About', href: '#about' },
+  { label: 'What We Do', href: '#what-we-do' },
+  { label: 'Events', href: '#events' },
+  { label: 'Team', href: '#team' },
+  { label: 'Join Us', href: '#join' },
 ]
 
 export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
+
+  useEffect(() => {
+    const syncScrollState = () => setIsScrolled(window.scrollY > 12)
+    syncScrollState()
+    window.addEventListener('scroll', syncScrollState, { passive: true })
+
+    const sections = NAV_ITEMS
+      .map((item) => document.querySelector(item.href))
+      .filter(Boolean)
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+
+        if (visibleSections[0]) {
+          setActiveSection(visibleSections[0].target.id)
+        }
+      },
+      { rootMargin: '-28% 0px -58% 0px', threshold: [0.1, 0.35, 0.65] },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+
+    return () => {
+      window.removeEventListener('scroll', syncScrollState)
+      observer.disconnect()
+    }
+  }, [])
+
   return (
-    <StaggeredMenu
-      position="right"
-      items={menuItems}
-      socialItems={socialItems}
-      displaySocials={true}
-      displayItemNumbering={false}
-      menuButtonColor="var(--text-primary)"
-      openMenuButtonColor="var(--text-primary)"
-      changeMenuColorOnOpen={false}
-      colors={['#4285F4', '#EA4335', '#FBBC04', '#34A853']}
-      accentColor="#4285F4"
-      isFixed={true}
-      closeOnClickAway={true}
-    />
+    <header className={`header-bar ${isScrolled ? 'header-bar--scrolled' : ''}`}>
+      <div className="header-bar__inner">
+        <a className="nav-logo" href="#hero" aria-label="GDGC PCCOE home">
+          <img className="nav-logo__image" src={gdgcLogo} alt="GDGC" />
+        </a>
+
+        <div className="nav-actions">
+          <nav className="nav-links" aria-label="Primary navigation">
+            {NAV_ITEMS.map((item) => {
+              const sectionId = item.href.slice(1)
+              const isActive = activeSection === sectionId
+
+              return (
+                <a
+                  key={item.href}
+                  className={`nav-link ${isActive ? 'nav-link--active' : ''}`}
+                  href={item.href}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              )
+            })}
+          </nav>
+          <ThemeToggle />
+        </div>
+      </div>
+    </header>
   )
 }
