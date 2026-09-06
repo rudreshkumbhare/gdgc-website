@@ -6,6 +6,8 @@
    Yellow: #FBBC04
    Green:  #34A853
    ========================================= */
+@import "tailwindcss";
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;

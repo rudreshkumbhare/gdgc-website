@@ -6,6 +6,7 @@ import About from './components/About'
 import WhatWeDo from './components/WhatWeDo'
 import Events from './components/Events'
 import Team from './components/Team'
+import Gallery from './components/Gallery'
 import Footer from './components/Footer'
 import AdminDashboard from './components/AdminDashboard'
 import BoxLoader from './components/ui/box-loader'
@@ -67,6 +68,7 @@ function App() {
         <WhatWeDo />
         <Events />
         <Team />
+        <Gallery />
       </main>
       <Footer />
     </div>
